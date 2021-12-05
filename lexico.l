@@ -13,6 +13,7 @@ extern void GetToken(string lexema, Token_type tipo, int linea);
 %option outfile="Scanner.cpp"
 %option case-insensitive
 %option noyywrap
+%option yylineno
 
 /*PASCAL RESEVED WORDS*/
 
@@ -94,82 +95,84 @@ OPRT_SMALLEREQUAL      "<="
 
 /* -- END OF OPRT --*/
 
-ENTERO [0-9]+
+ENTERO        [0-9]+
 IDENTIFICADOR [_a-zA-Z][_a-zA-Z0-9]{0,32}
+BLANKSPC      [ \t\n]+
 
 %%
 
-{RSVW_ABSOLUTE}         GetToken(yytext,RSVWORD,0);
-{RSVW_AND}              GetToken(yytext,RSVWORD,0);     
-{RSVW_ARRAY}            GetToken(yytext,RSVWORD,0);      
-{RSVW_ASM}              GetToken(yytext,RSVWORD,0);     
-{RSVW_BEGIN}            GetToken(yytext,RSVWORD,0);     
-{RSVW_CASE}             GetToken(yytext,RSVWORD,0);     
-{RSVW_CONST}            GetToken(yytext,RSVWORD,0);      
-{RSVW_CONSTRUCTOR}      GetToken(yytext,RSVWORD,0);
-{RSVW_DESTRUCTOR}       GetToken(yytext,RSVWORD,0);
-{RSVW_DIV}              GetToken(yytext,RSVWORD,0);
-{RSVW_DO}               GetToken(yytext,RSVWORD,0);
-{RSVW_DOWNTO}           GetToken(yytext,RSVWORD,0);
-{RSVW_ELSE}             GetToken(yytext,RSVWORD,0);
-{RSVW_END}              GetToken(yytext,RSVWORD,0);
+{RSVW_ABSOLUTE}         GetToken(yytext,RSVWORD,yylineno);
+{RSVW_AND}              GetToken(yytext,RSVWORD,yylineno);     
+{RSVW_ARRAY}            GetToken(yytext,RSVWORD,yylineno);      
+{RSVW_ASM}              GetToken(yytext,RSVWORD,yylineno);     
+{RSVW_BEGIN}            GetToken(yytext,RSVWORD,yylineno);     
+{RSVW_CASE}             GetToken(yytext,RSVWORD,yylineno);     
+{RSVW_CONST}            GetToken(yytext,RSVWORD,yylineno);      
+{RSVW_CONSTRUCTOR}      GetToken(yytext,RSVWORD,yylineno);
+{RSVW_DESTRUCTOR}       GetToken(yytext,RSVWORD,yylineno);
+{RSVW_DIV}              GetToken(yytext,RSVWORD,yylineno);
+{RSVW_DO}               GetToken(yytext,RSVWORD,yylineno);
+{RSVW_DOWNTO}           GetToken(yytext,RSVWORD,yylineno);
+{RSVW_ELSE}             GetToken(yytext,RSVWORD,yylineno);
+{RSVW_END}              GetToken(yytext,RSVWORD,yylineno);
 
-{RSVW_FILE}             GetToken(yytext,RSVWORD,0);
-{RSVW_FOR}              GetToken(yytext,RSVWORD,0);
-{RSVW_FUNCTION}         GetToken(yytext,RSVWORD,0);
-{RSVW_GOTO}             GetToken(yytext,RSVWORD,0);
-{RSVW_IF}               GetToken(yytext,RSVWORD,0);
-{RSVW_IMPLEMENTATION}   GetToken(yytext,RSVWORD,0);
-{RSVW_IN}               GetToken(yytext,RSVWORD,0);
-{RSVW_INHERITED}        GetToken(yytext,RSVWORD,0);
-{RSVW_INLINE}           GetToken(yytext,RSVWORD,0);
-{RSVW_INTERFACE}        GetToken(yytext,RSVWORD,0);
-{RSVW_LABEL}            GetToken(yytext,RSVWORD,0);
-{RSVW_MOD}              GetToken(yytext,RSVWORD,0);
-{RSVW_NIL}              GetToken(yytext,RSVWORD,0);
-{RSVW_NOT}              GetToken(yytext,RSVWORD,0);
+{RSVW_FILE}             GetToken(yytext,RSVWORD,yylineno);
+{RSVW_FOR}              GetToken(yytext,RSVWORD,yylineno);
+{RSVW_FUNCTION}         GetToken(yytext,RSVWORD,yylineno);
+{RSVW_GOTO}             GetToken(yytext,RSVWORD,yylineno);
+{RSVW_IF}               GetToken(yytext,RSVWORD,yylineno);
+{RSVW_IMPLEMENTATION}   GetToken(yytext,RSVWORD,yylineno);
+{RSVW_IN}               GetToken(yytext,RSVWORD,yylineno);
+{RSVW_INHERITED}        GetToken(yytext,RSVWORD,yylineno);
+{RSVW_INLINE}           GetToken(yytext,RSVWORD,yylineno);
+{RSVW_INTERFACE}        GetToken(yytext,RSVWORD,yylineno);
+{RSVW_LABEL}            GetToken(yytext,RSVWORD,yylineno);
+{RSVW_MOD}              GetToken(yytext,RSVWORD,yylineno);
+{RSVW_NIL}              GetToken(yytext,RSVWORD,yylineno);
+{RSVW_NOT}              GetToken(yytext,RSVWORD,yylineno);
 
-{RSVW_OBJECT}           GetToken(yytext,RSVWORD,0);
-{RSVW_OF}               GetToken(yytext,RSVWORD,0);
-{RSVW_OPERATOR}         GetToken(yytext,RSVWORD,0);
-{RSVW_OR}               GetToken(yytext,RSVWORD,0); 
-{RSVW_PACKED}           GetToken(yytext,RSVWORD,0);
-{RSVW_PROCEDURE}        GetToken(yytext,RSVWORD,0); 
-{RSVW_PROGRAM}          GetToken(yytext,RSVWORD,0);
-{RSVW_RECORD}           GetToken(yytext,RSVWORD,0);
-{RSVW_REINTRODUCE}      GetToken(yytext,RSVWORD,0);
-{RSVW_REPEAT}           GetToken(yytext,RSVWORD,0);
-{RSVW_SELF}             GetToken(yytext,RSVWORD,0);
-{RSVW_SET}              GetToken(yytext,RSVWORD,0);
-{RSVW_SHL}              GetToken(yytext,RSVWORD,0);
-{RSVW_SHR}              GetToken(yytext,RSVWORD,0);
+{RSVW_OBJECT}           GetToken(yytext,RSVWORD,yylineno);
+{RSVW_OF}               GetToken(yytext,RSVWORD,yylineno);
+{RSVW_OPERATOR}         GetToken(yytext,RSVWORD,yylineno);
+{RSVW_OR}               GetToken(yytext,RSVWORD,yylineno); 
+{RSVW_PACKED}           GetToken(yytext,RSVWORD,yylineno);
+{RSVW_PROCEDURE}        GetToken(yytext,RSVWORD,yylineno); 
+{RSVW_PROGRAM}          GetToken(yytext,RSVWORD,yylineno);
+{RSVW_RECORD}           GetToken(yytext,RSVWORD,yylineno);
+{RSVW_REINTRODUCE}      GetToken(yytext,RSVWORD,yylineno);
+{RSVW_REPEAT}           GetToken(yytext,RSVWORD,yylineno);
+{RSVW_SELF}             GetToken(yytext,RSVWORD,yylineno);
+{RSVW_SET}              GetToken(yytext,RSVWORD,yylineno);
+{RSVW_SHL}              GetToken(yytext,RSVWORD,yylineno);
+{RSVW_SHR}              GetToken(yytext,RSVWORD,yylineno);
 
-{RSVW_STRING}           GetToken(yytext,RSVWORD,0); 
-{RSVW_THEN}             GetToken(yytext,RSVWORD,0);
-{RSVW_TO}               GetToken(yytext,RSVWORD,0);
-{RSVW_TYPE}             GetToken(yytext,RSVWORD,0);
-{RSVW_UNIT}             GetToken(yytext,RSVWORD,0);
-{RSVW_UNTIL}            GetToken(yytext,RSVWORD,0);
-{RSVW_USES}             GetToken(yytext,RSVWORD,0);
-{RSVW_VAR}              GetToken(yytext,RSVWORD,0);
-{RSVW_WHILE}            GetToken(yytext,RSVWORD,0);
-{RSVW_WITH}             GetToken(yytext,RSVWORD,0);
-{RSVW_XOR}              GetToken(yytext,RSVWORD,0);
+{RSVW_STRING}           GetToken(yytext,RSVWORD,yylineno); 
+{RSVW_THEN}             GetToken(yytext,RSVWORD,yylineno);
+{RSVW_TO}               GetToken(yytext,RSVWORD,yylineno);
+{RSVW_TYPE}             GetToken(yytext,RSVWORD,yylineno);
+{RSVW_UNIT}             GetToken(yytext,RSVWORD,yylineno);
+{RSVW_UNTIL}            GetToken(yytext,RSVWORD,yylineno);
+{RSVW_USES}             GetToken(yytext,RSVWORD,yylineno);
+{RSVW_VAR}              GetToken(yytext,RSVWORD,yylineno);
+{RSVW_WHILE}            GetToken(yytext,RSVWORD,yylineno);
+{RSVW_WITH}             GetToken(yytext,RSVWORD,yylineno);
+{RSVW_XOR}              GetToken(yytext,RSVWORD,yylineno);
 
 
-{OPRT_ADD}              GetToken(yytext,OPRT,0);         
-{OPRT_SUBSTR}           GetToken(yytext,OPRT,0);
-{OPRT_MULT}             GetToken(yytext,OPRT,0);
-{OPRT_DIV}              GetToken(yytext,OPRT,0);
-{OPRT_RESI}             GetToken(yytext,OPRT,0);
-{OPRT_EQUAL}            GetToken(yytext,OPRT,0);
-{OPRT_NOTEQUAL}         GetToken(yytext,OPRT,0);
-{OPRT_GREATERTHAN}      GetToken(yytext,OPRT,0);
-{OPRT_SMALLERTHAN}      GetToken(yytext,OPRT,0);
-{OPRT_GREATEREQUAL}     GetToken(yytext,OPRT,0);
-{OPRT_SMALLEREQUAL}     GetToken(yytext,OPRT,0);
+{OPRT_ADD}              GetToken(yytext,OPRT,yylineno);         
+{OPRT_SUBSTR}           GetToken(yytext,OPRT,yylineno);
+{OPRT_MULT}             GetToken(yytext,OPRT,yylineno);
+{OPRT_DIV}              GetToken(yytext,OPRT,yylineno);
+{OPRT_RESI}             GetToken(yytext,OPRT,yylineno);
+{OPRT_EQUAL}            GetToken(yytext,OPRT,yylineno);
+{OPRT_NOTEQUAL}         GetToken(yytext,OPRT,yylineno);
+{OPRT_GREATERTHAN}      GetToken(yytext,OPRT,yylineno);
+{OPRT_SMALLERTHAN}      GetToken(yytext,OPRT,yylineno);
+{OPRT_GREATEREQUAL}     GetToken(yytext,OPRT,yylineno);
+{OPRT_SMALLEREQUAL}     GetToken(yytext,OPRT,yylineno);
 
-{ENTERO} GetToken(yytext,INTEGER,0);
-{IDENTIFICADOR} GetToken(yytext,IDENTIFIER,0);
+{ENTERO}                GetToken(yytext,INTEGER,yylineno);
+{IDENTIFICADOR}         GetToken(yytext,IDENTIFIER,yylineno);
+{BLANKSPC}              GetToken(yytext,EMPTYSPC,yylineno);
 %%
 

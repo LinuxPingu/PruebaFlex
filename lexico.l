@@ -1,6 +1,15 @@
 %{
+
 #include <stdio.h>
+#include "Token.h"
 #include <stdlib.h>
+
+using namespace std;
+
+extern string* pStr;
+extern void GetToken(string lexema, Token_type tipo, int linea);
+
+
 %}
 
 %option c++
@@ -17,9 +26,10 @@ ID {LETRA}({LETRA}|{DIGITO}|"_")*
 DELIMITADOR [\t\r\f" "]
 
 %%
-{ENTERO} {printf("Numero Entero %s/n",yytext);}
+{ENTERO} GetToken(yytext,INTEGER,0);
 {REAL}   {printf("Numero Real %s/n",yytext);}
 {ID}     {printf("Identificador %s/n",yytext);}
 {DELIMITADOR} {}
 . {printf("Error LEXICO");}
 %%
+

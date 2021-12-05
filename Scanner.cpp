@@ -401,10 +401,19 @@ static const flex_int16_t yy_chk[24] =
 #define YY_RESTORE_YY_MORE_OFFSET
 #line 1 "lexico.l"
 #line 2 "lexico.l"
+
 #include <stdio.h>
+#include "Token.h"
 #include <stdlib.h>
-#line 407 "Scanner.cpp"
-#line 408 "Scanner.cpp"
+
+using namespace std;
+
+extern string* pStr;
+extern void GetToken(string lexema, Token_type tipo, int linea);
+
+
+#line 416 "Scanner.cpp"
+#line 417 "Scanner.cpp"
 
 #define INITIAL 0
 
@@ -536,9 +545,9 @@ YY_DECL
 		}
 
 	{
-#line 19 "lexico.l"
+#line 28 "lexico.l"
 
-#line 542 "Scanner.cpp"
+#line 551 "Scanner.cpp"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -597,35 +606,35 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 20 "lexico.l"
-{printf("Numero Entero %s/n",yytext);}
+#line 29 "lexico.l"
+GetToken(yytext,INTEGER,0);
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 21 "lexico.l"
+#line 30 "lexico.l"
 {printf("Numero Real %s/n",yytext);}
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 22 "lexico.l"
+#line 31 "lexico.l"
 {printf("Identificador %s/n",yytext);}
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 23 "lexico.l"
+#line 32 "lexico.l"
 {}
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 24 "lexico.l"
+#line 33 "lexico.l"
 {printf("Error LEXICO");}
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 25 "lexico.l"
+#line 34 "lexico.l"
 ECHO;
 	YY_BREAK
-#line 629 "Scanner.cpp"
+#line 638 "Scanner.cpp"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1588,5 +1597,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 25 "lexico.l"
+#line 34 "lexico.l"
+
+
 

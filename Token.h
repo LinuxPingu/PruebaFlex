@@ -1,7 +1,7 @@
 #include <string>
 
 enum token_types {
-	DIGIT, IDENTIFIER, INTEGER, FLOAT, RSVWORD
+	DIGIT, IDENTIFIER, INTEGER, FLOAT, RSVWORD, OPRT 
 }; typedef token_types Token_type;
 
 struct token{

@@ -73,11 +73,32 @@ RSVW_WHILE             "while"
 RSVW_WITH              "with"
 RSVW_XOR               "xor"
 
+/*   -- END OF RSVW --    */
+
+/*Arithmetic Operators*/
+
+OPRT_ADD               "+"
+OPRT_SUBSTR            "-"
+OPRT_MULT              "*"
+OPRT_DIV               "/"
+OPRT_RESI              "%"
+
+/*  -- Relational Operators -- */
+
+OPRT_EQUAL             "="
+OPRT_NOTEQUAL          "<>"
+OPRT_GREATERTHAN       "<"
+OPRT_SMALLERTHAN       ">"
+OPRT_GREATEREQUAL      ">="
+OPRT_SMALLEREQUAL      "<="
+
+/* -- END OF OPRT --*/
 
 ENTERO [0-9]+
 IDENTIFICADOR [_a-zA-Z][_a-zA-Z0-9]{0,32}
 
 %%
+
 {RSVW_ABSOLUTE}         GetToken(yytext,RSVWORD,0);
 {RSVW_AND}              GetToken(yytext,RSVWORD,0);     
 {RSVW_ARRAY}            GetToken(yytext,RSVWORD,0);      
@@ -135,6 +156,18 @@ IDENTIFICADOR [_a-zA-Z][_a-zA-Z0-9]{0,32}
 {RSVW_WITH}             GetToken(yytext,RSVWORD,0);
 {RSVW_XOR}              GetToken(yytext,RSVWORD,0);
 
+
+{OPRT_ADD}              GetToken(yytext,OPRT,0);         
+{OPRT_SUBSTR}           GetToken(yytext,OPRT,0);
+{OPRT_MULT}             GetToken(yytext,OPRT,0);
+{OPRT_DIV}              GetToken(yytext,OPRT,0);
+{OPRT_RESI}             GetToken(yytext,OPRT,0);
+{OPRT_EQUAL}            GetToken(yytext,OPRT,0);
+{OPRT_NOTEQUAL}         GetToken(yytext,OPRT,0);
+{OPRT_GREATERTHAN}      GetToken(yytext,OPRT,0);
+{OPRT_SMALLERTHAN}      GetToken(yytext,OPRT,0);
+{OPRT_GREATEREQUAL}     GetToken(yytext,OPRT,0);
+{OPRT_SMALLEREQUAL}     GetToken(yytext,OPRT,0);
 
 {ENTERO} GetToken(yytext,INTEGER,0);
 {IDENTIFICADOR} GetToken(yytext,IDENTIFIER,0);

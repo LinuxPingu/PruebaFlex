@@ -29,7 +29,6 @@ RSVW_DIV           "div"
 RSVW_DO            "do"
 RSVW_DOWNTO        "downto"
 RSVW_ELSE          "else"
-
 RSVW_END           "end"
 
 RSVW_FILE             "file"
@@ -46,6 +45,34 @@ RSVW_LABEL            "label"
 RSVW_MOD              "mod"
 RSVW_NIL              "nil"
 RSVW_NOT              "not"
+
+RSVW_OBJECT            "object"
+RSVW_OF                "of"
+RSVW_OPERATOR          "operator"
+RSVW_OR                "or"
+RSVW_PACKED            "packed"
+RSVW_PROCEDURE         "procedure"
+RSVW_PROGRAM           "program"
+RSVW_RECORD            "record"
+RSVW_REINTRODUCE       "reintroduce"
+RSVW_REPEAT            "repeat"
+RSVW_SELF              "self"
+RSVW_SET               "set"
+RSVW_SHL               "shl"
+RSVW_SHR               "shr"
+
+RSVW_STRING            "string"
+RSVW_THEN              "then"
+RSVW_TO                "to"
+RSVW_TYPE              "type"
+RSVW_UNIT              "unit"
+RSVW_UNTIL             "util"
+RSVW_USES              "uses"
+RSVW_VAR               "var"
+RSVW_WHILE             "while" 
+RSVW_WITH              "with"
+RSVW_XOR               "xor"
+
 
 ENTERO [0-9]+
 IDENTIFICADOR [_a-zA-Z][_a-zA-Z0-9]{0,32}
@@ -65,6 +92,49 @@ IDENTIFICADOR [_a-zA-Z][_a-zA-Z0-9]{0,32}
 {RSVW_DOWNTO}           GetToken(yytext,RSVWORD,0);
 {RSVW_ELSE}             GetToken(yytext,RSVWORD,0);
 {RSVW_END}              GetToken(yytext,RSVWORD,0);
+
+{RSVW_FILE}             GetToken(yytext,RSVWORD,0);
+{RSVW_FOR}              GetToken(yytext,RSVWORD,0);
+{RSVW_FUNCTION}         GetToken(yytext,RSVWORD,0);
+{RSVW_GOTO}             GetToken(yytext,RSVWORD,0);
+{RSVW_IF}               GetToken(yytext,RSVWORD,0);
+{RSVW_IMPLEMENTATION}   GetToken(yytext,RSVWORD,0);
+{RSVW_IN}               GetToken(yytext,RSVWORD,0);
+{RSVW_INHERITED}        GetToken(yytext,RSVWORD,0);
+{RSVW_INLINE}           GetToken(yytext,RSVWORD,0);
+{RSVW_INTERFACE}        GetToken(yytext,RSVWORD,0);
+{RSVW_LABEL}            GetToken(yytext,RSVWORD,0);
+{RSVW_MOD}              GetToken(yytext,RSVWORD,0);
+{RSVW_NIL}              GetToken(yytext,RSVWORD,0);
+{RSVW_NOT}              GetToken(yytext,RSVWORD,0);
+
+{RSVW_OBJECT}           GetToken(yytext,RSVWORD,0);
+{RSVW_OF}               GetToken(yytext,RSVWORD,0);
+{RSVW_OPERATOR}         GetToken(yytext,RSVWORD,0);
+{RSVW_OR}               GetToken(yytext,RSVWORD,0); 
+{RSVW_PACKED}           GetToken(yytext,RSVWORD,0);
+{RSVW_PROCEDURE}        GetToken(yytext,RSVWORD,0); 
+{RSVW_PROGRAM}          GetToken(yytext,RSVWORD,0);
+{RSVW_RECORD}           GetToken(yytext,RSVWORD,0);
+{RSVW_REINTRODUCE}      GetToken(yytext,RSVWORD,0);
+{RSVW_REPEAT}           GetToken(yytext,RSVWORD,0);
+{RSVW_SELF}             GetToken(yytext,RSVWORD,0);
+{RSVW_SET}              GetToken(yytext,RSVWORD,0);
+{RSVW_SHL}              GetToken(yytext,RSVWORD,0);
+{RSVW_SHR}              GetToken(yytext,RSVWORD,0);
+
+{RSVW_STRING}           GetToken(yytext,RSVWORD,0); 
+{RSVW_THEN}             GetToken(yytext,RSVWORD,0);
+{RSVW_TO}               GetToken(yytext,RSVWORD,0);
+{RSVW_TYPE}             GetToken(yytext,RSVWORD,0);
+{RSVW_UNIT}             GetToken(yytext,RSVWORD,0);
+{RSVW_UNTIL}            GetToken(yytext,RSVWORD,0);
+{RSVW_USES}             GetToken(yytext,RSVWORD,0);
+{RSVW_VAR}              GetToken(yytext,RSVWORD,0);
+{RSVW_WHILE}            GetToken(yytext,RSVWORD,0);
+{RSVW_WITH}             GetToken(yytext,RSVWORD,0);
+{RSVW_XOR}              GetToken(yytext,RSVWORD,0);
+
 
 {ENTERO} GetToken(yytext,INTEGER,0);
 {IDENTIFICADOR} GetToken(yytext,IDENTIFIER,0);

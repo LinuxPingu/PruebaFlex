@@ -46,7 +46,7 @@ void GetToken(string lexema, token tipo, int linea);
 void CreateOutputFile(string name);
 
 /*El archivo debe pasarse por parametro*/
-int main(int argc, char* argvs[]){
+int main(int argc, char* argvs[]) {
 	/*Lectura de parametros
 		-s SOURCE
 		-o OUTPUT
@@ -87,14 +87,14 @@ int main(int argc, char* argvs[]){
 
 		//Ejecucion del scaneo
 		while (lexer->yylex() != 0) {
-				/*DO NOTHING*/
+			/*DO NOTHING*/
 		};
 
 
 		//Creacion de archivo de salida
 		outputFileName != "" ? CreateOutputFile(outFileParam) : CreateOutputFile(defaultFileName);
 
-		
+
 
 		//Analisis del output segun reglas, bloque de codigo temporal
 		size_t word_counter = tokens_queue.size();
@@ -102,10 +102,10 @@ int main(int argc, char* argvs[]){
 		cout << "---TOKENS--- " << endl;
 		for (size_t i = 0; i < word_counter; i++)
 		{
-				Token popped = tokens_queue.front();
-				cout << *popped->value << " -- " << popped->type <<" ";
-				
-				tokens_queue.pop();
+			Token popped = tokens_queue.front();
+			cout << *popped->value << " -- " << popped->type << " ";
+
+			tokens_queue.pop();
 		}
 
 
@@ -116,6 +116,7 @@ int main(int argc, char* argvs[]){
 		cout << "Unknown exception!" << endl;
 	}
 }
+
 
 
 void GetToken(string lexema, Token_type tipo, int linea) {
@@ -133,23 +134,21 @@ void CreateOutputFile(string nombre) {
 	ss << ctime(&end_time);
 	string creation_time = ss.str();
 
-	ofstream outFile((nombre+latexExtension));
+	ofstream outFile((nombre + latexExtension));
 	string textToPDFCommand = "pdflatex";
-	textToPDFCommand.append(" --jobname "+nombre);
-	textToPDFCommand.append(" ./"+nombre);
+	textToPDFCommand.append(" --jobname " + nombre);
+	textToPDFCommand.append(" ./" + nombre);
 
 	char* cmd = &textToPDFCommand[0];
 
 	/*LATEX*/
 	outFile << PDFHeader;
 
-	outFile << "\\date {Generado : "+creation_time+"}";
+	outFile << "\\date {Generado : " + creation_time + "}";
 
 	outFile << PDFCover;
 
 	outFile.close();
-	
+
 	system(cmd);
-
-
 }

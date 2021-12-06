@@ -19,7 +19,7 @@ extern void GetToken(string lexema, Token_type tipo, int linea);
 
 RSVW_ABSOLUTE      "absolute"
 RSVW_AND           "and"
-RSVW_ARRAY         "array"
+
 RSVW_ASM           "asm"
 RSVW_BEGIN         "begin"
 RSVW_CASE          "case"
@@ -32,7 +32,7 @@ RSVW_DOWNTO        "downto"
 RSVW_ELSE          "else"
 RSVW_END           "end"
 
-RSVW_FILE             "file"
+
 RSVW_FOR              "for"
 RSVW_FUNCTION         "function"
 RSVW_GOTO             "goto"
@@ -54,15 +54,15 @@ RSVW_OR                "or"
 RSVW_PACKED            "packed"
 RSVW_PROCEDURE         "procedure"
 RSVW_PROGRAM           "program"
-RSVW_RECORD            "record"
+
 RSVW_REINTRODUCE       "reintroduce"
 RSVW_REPEAT            "repeat"
 RSVW_SELF              "self"
-RSVW_SET               "set"
+
 RSVW_SHL               "shl"
 RSVW_SHR               "shr"
 
-RSVW_STRING            "string"
+
 RSVW_THEN              "then"
 RSVW_TO                "to"
 RSVW_TYPE              "type"
@@ -117,8 +117,50 @@ OPRT_GREATERTHAN       "<"
 OPRT_SMALLERTHAN       ">"
 OPRT_GREATEREQUAL      ">="
 OPRT_SMALLEREQUAL      "<="
+OPRT_APEND             "+="
+OPRT_SET_NEW_VAL       ":="
+
 
 /* -- END OF OPRT --*/
+
+
+/*SINTAX SYMBOLS*/
+
+STXSYMBL_OP_PARENTHESES            "(" 
+STXSYMBL_CL_PARENTHESES            ")"
+STXSYMBL_OP_SQR_PARENTHESES        "["
+STXSYMBL_CL_SQR_PARENTHESES        "]"
+STXSYMBL_SNLG_QUOTE                "'"
+STXSYMBL_NXT_ARG                   ","
+STXSYMBL_END_ARG                   ";"
+
+/*  -- END OF SYNTX -- */
+
+/* DATA TYPES  */
+
+DTTYPE_INTEGER                    "integer"
+DTTYPE_CARDINAL                   "cardinal"
+DTTYPE_SHORTINT                   "shortint"
+DTTYPE_SMALLINT                   "smallint"
+DTTYPE_LONGINT                    "longint"
+DTTYPE_INT64                      "int64"
+DTTYPE_BYTE                       "byte"
+DTTYPE_WORD                       "word"
+DTTYPE_LONGWORD                   "longword"
+
+DTTYPE_CHAR                       "char"
+DTTYPE_REAL                       "real"
+DTTYPE_BOOLEAN                    "boolean"
+DTTYPE_ENUM                       "enum"
+
+DTTYPE_STRING                     "string"
+DTTYPE_ARRAY                      "array"
+DTTYPE_FILE                       "file"
+DTTYPE_SET                        "set"
+DTTYPE_RECORD                     "record"
+
+/* -- END OF DATA TYPES  --*/
+
 
 ENTERO        [0-9]+
 IDENTIFICADOR [_a-zA-Z][_a-zA-Z0-9]{0,32}
@@ -128,7 +170,7 @@ BLANKSPC      [ \t\n]+
 
 {RSVW_ABSOLUTE}         GetToken(yytext,RSVWORD,yylineno);
 {RSVW_AND}              GetToken(yytext,RSVWORD,yylineno);     
-{RSVW_ARRAY}            GetToken(yytext,RSVWORD,yylineno);      
+     
 {RSVW_ASM}              GetToken(yytext,RSVWORD,yylineno);     
 {RSVW_BEGIN}            GetToken(yytext,RSVWORD,yylineno);     
 {RSVW_CASE}             GetToken(yytext,RSVWORD,yylineno);     
@@ -141,7 +183,7 @@ BLANKSPC      [ \t\n]+
 {RSVW_ELSE}             GetToken(yytext,RSVWORD,yylineno);
 {RSVW_END}              GetToken(yytext,RSVWORD,yylineno);
 
-{RSVW_FILE}             GetToken(yytext,RSVWORD,yylineno);
+
 {RSVW_FOR}              GetToken(yytext,RSVWORD,yylineno);
 {RSVW_FUNCTION}         GetToken(yytext,RSVWORD,yylineno);
 {RSVW_GOTO}             GetToken(yytext,RSVWORD,yylineno);
@@ -163,15 +205,15 @@ BLANKSPC      [ \t\n]+
 {RSVW_PACKED}           GetToken(yytext,RSVWORD,yylineno);
 {RSVW_PROCEDURE}        GetToken(yytext,RSVWORD,yylineno); 
 {RSVW_PROGRAM}          GetToken(yytext,RSVWORD,yylineno);
-{RSVW_RECORD}           GetToken(yytext,RSVWORD,yylineno);
+
 {RSVW_REINTRODUCE}      GetToken(yytext,RSVWORD,yylineno);
 {RSVW_REPEAT}           GetToken(yytext,RSVWORD,yylineno);
 {RSVW_SELF}             GetToken(yytext,RSVWORD,yylineno);
-{RSVW_SET}              GetToken(yytext,RSVWORD,yylineno);
+
 {RSVW_SHL}              GetToken(yytext,RSVWORD,yylineno);
 {RSVW_SHR}              GetToken(yytext,RSVWORD,yylineno);
 
-{RSVW_STRING}           GetToken(yytext,RSVWORD,yylineno); 
+
 {RSVW_THEN}             GetToken(yytext,RSVWORD,yylineno);
 {RSVW_TO}               GetToken(yytext,RSVWORD,yylineno);
 {RSVW_TYPE}             GetToken(yytext,RSVWORD,yylineno);
@@ -218,6 +260,41 @@ BLANKSPC      [ \t\n]+
 {OPRT_SMALLERTHAN}      GetToken(yytext,OPRT,yylineno);
 {OPRT_GREATEREQUAL}     GetToken(yytext,OPRT,yylineno);
 {OPRT_SMALLEREQUAL}     GetToken(yytext,OPRT,yylineno);
+{OPRT_APEND}            GetToken(yytext,OPRT,yylineno);
+{OPRT_SET_NEW_VAL}      GetToken(yytext,OPRT,yylineno);
+
+
+
+{STXSYMBL_OP_PARENTHESES}       GetToken(yytext,STXSymbl,yylineno);
+{STXSYMBL_CL_PARENTHESES}       GetToken(yytext,STXSymbl,yylineno);
+{STXSYMBL_OP_SQR_PARENTHESES}   GetToken(yytext,STXSymbl,yylineno);
+{STXSYMBL_CL_SQR_PARENTHESES}   GetToken(yytext,STXSymbl,yylineno);
+{STXSYMBL_SNLG_QUOTE}           GetToken(yytext,STXSymbl,yylineno);
+{STXSYMBL_NXT_ARG}              GetToken(yytext,STXSymbl,yylineno);
+{STXSYMBL_END_ARG}              GetToken(yytext,STXSymbl,yylineno);
+
+
+{DTTYPE_INTEGER}                GetToken(yytext,DTTYPE,yylineno);   
+{DTTYPE_CARDINAL}               GetToken(yytext,DTTYPE,yylineno);
+{DTTYPE_SHORTINT}               GetToken(yytext,DTTYPE,yylineno);
+{DTTYPE_SMALLINT}               GetToken(yytext,DTTYPE,yylineno);
+{DTTYPE_LONGINT}                GetToken(yytext,DTTYPE,yylineno);
+{DTTYPE_INT64}                  GetToken(yytext,DTTYPE,yylineno);
+{DTTYPE_BYTE}                   GetToken(yytext,DTTYPE,yylineno);
+{DTTYPE_WORD}                   GetToken(yytext,DTTYPE,yylineno);
+{DTTYPE_LONGWORD}               GetToken(yytext,DTTYPE,yylineno);
+
+{DTTYPE_CHAR}                   GetToken(yytext,DTTYPE,yylineno);
+{DTTYPE_REAL}                   GetToken(yytext,DTTYPE,yylineno);
+{DTTYPE_BOOLEAN}                GetToken(yytext,DTTYPE,yylineno);
+{DTTYPE_ENUM}                   GetToken(yytext,DTTYPE,yylineno);
+
+{DTTYPE_ARRAY}                  GetToken(yytext,DTTYPE,yylineno);
+{DTTYPE_FILE}                   GetToken(yytext,DTTYPE,yylineno);
+{DTTYPE_STRING}                 GetToken(yytext,DTTYPE,yylineno);
+{DTTYPE_SET}                    GetToken(yytext,DTTYPE,yylineno);
+{DTTYPE_RECORD}                 GetToken(yytext,DTTYPE,yylineno);
+
 
 {ENTERO}                GetToken(yytext,INTEGER,yylineno);
 {IDENTIFICADOR}         GetToken(yytext,IDENTIFIER,yylineno);

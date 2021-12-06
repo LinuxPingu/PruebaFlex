@@ -74,6 +74,31 @@ RSVW_WHILE             "while"
 RSVW_WITH              "with"
 RSVW_XOR               "xor"
 
+
+/*Object Reserved Words*/
+
+RSVW_AS                "as"
+RSVW_CLASS             "class"     
+RSVW_DISPINTERFACE     "dispinterface" 
+RSVW_EXCEPT            "except"
+RSVW_EXPORTS           "exports"
+
+RSVW_FINALIZATION     "finalization"
+RSVW_FINALY           "finaly"
+RSVW_INITIALIZATION   "initialization"
+RSVW_IS               "is"
+
+RSVW_LIBRARY         "library"
+RSVW_ON              "on"
+RSVW_OUT             "out"
+RSVW_PROPERTY        "property"
+
+RSVW_RAISE           "raise"
+RSVW_RESOURCESTRING  "resourcestring"
+RSVW_THREADVAR       "threadvar"
+RSVW_TRY             "try"
+
+
 /*   -- END OF RSVW --    */
 
 /*Arithmetic Operators*/
@@ -157,6 +182,29 @@ BLANKSPC      [ \t\n]+
 {RSVW_WHILE}            GetToken(yytext,RSVWORD,yylineno);
 {RSVW_WITH}             GetToken(yytext,RSVWORD,yylineno);
 {RSVW_XOR}              GetToken(yytext,RSVWORD,yylineno);
+
+
+{RSVW_AS}               GetToken(yytext,RSVWORD,yylineno);  
+{RSVW_CLASS}            GetToken(yytext,RSVWORD,yylineno);
+{RSVW_DISPINTERFACE}    GetToken(yytext,RSVWORD,yylineno);
+{RSVW_EXCEPT}           GetToken(yytext,RSVWORD,yylineno);
+{RSVW_EXPORTS}          GetToken(yytext,RSVWORD,yylineno);
+
+{RSVW_FINALIZATION}     GetToken(yytext,RSVWORD,yylineno);
+{RSVW_FINALY}           GetToken(yytext,RSVWORD,yylineno);
+{RSVW_INITIALIZATION}   GetToken(yytext,RSVWORD,yylineno);
+{RSVW_IS}               GetToken(yytext,RSVWORD,yylineno);
+
+{RSVW_LIBRARY}          GetToken(yytext,RSVWORD,yylineno);
+{RSVW_ON}               GetToken(yytext,RSVWORD,yylineno);
+{RSVW_OUT}              GetToken(yytext,RSVWORD,yylineno);
+{RSVW_PROPERTY}         GetToken(yytext,RSVWORD,yylineno);
+
+{RSVW_RAISE}            GetToken(yytext,RSVWORD,yylineno);
+{RSVW_RESOURCESTRING}   GetToken(yytext,RSVWORD,yylineno);
+{RSVW_THREADVAR}        GetToken(yytext,RSVWORD,yylineno);
+{RSVW_TRY}              GetToken(yytext,RSVWORD,yylineno);
+
 
 
 {OPRT_ADD}              GetToken(yytext,OPRT,yylineno);         

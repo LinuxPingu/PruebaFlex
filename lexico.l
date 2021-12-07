@@ -161,8 +161,9 @@ DTTYPE_RECORD                     "record"
 
 /* -- END OF DATA TYPES  --*/
 
-
-ENTERO        [0-9]+
+DIGITO        [0-9]
+ENTERO        [DIGITO]+
+REAL          [DIGITO]+"."[DIGITO]+
 IDENTIFICADOR [_a-zA-Z][_a-zA-Z0-9]{0,32}
 BLANKSPC      [ \t\n]+
 

@@ -18,12 +18,13 @@ const string PDFHeader = R"(\documentclass[letterpaper,twoside,12pt]{article}
 
 \usepackage[T1]{fontenc}
 \usepackage{amsmath}
+\usepackage{xcolor}
 \usepackage[latin1]{inputenc}
 
-\title{Analizador Léxico}
+\title{Analizador Lï¿½xico}
 )";
 
-const string PDFCover = R"(\author{Jesé Chávez CARNET \\  Daniel Hernandez CARNET \\ \\}
+const string PDFCover = R"(\author{Jesï¿½ Chï¿½vez CARNET \\  Daniel Hernandez CARNET \\ \\}
 
 \begin{document}
 \begin{titlepage}

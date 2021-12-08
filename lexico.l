@@ -27,16 +27,14 @@ RSVW_CONST         "const"
 RSVW_CONSTRUCTOR   "contructor"
 RSVW_DESTRUCTOR    "detructor"
 RSVW_DIV           "div"
-RSVW_DO            "do"
 RSVW_DOWNTO        "downto"
 RSVW_ELSE          "else"
 RSVW_END           "end"
 
 
-RSVW_FOR              "for"
+
 RSVW_FUNCTION         "function"
 RSVW_GOTO             "goto"
-RSVW_IF               "if"
 RSVW_IMPLEMENTATION   "implementation"
 RSVW_IN               "in"
 RSVW_INHERITED        "inherited"
@@ -70,9 +68,20 @@ RSVW_UNIT              "unit"
 RSVW_UNTIL             "util"
 RSVW_USES              "uses"
 RSVW_VAR               "var"
-RSVW_WHILE             "while" 
 RSVW_WITH              "with"
 RSVW_XOR               "xor"
+
+/*  -- Simplificador   -- */
+
+
+
+RSVW_WHILE             "while" 
+RSVW_IF                "if"
+RSVW_FOR               "for"
+RSVW_DO                "do"
+                                               
+Usr_WHILE   ({BLANKSPC}{RSVW_WHILE}{BLANKSPC}|{RSVW_WHILE}{BLANKSPC})({STXSYMBL_OP_PARENTHESES}|{STXSYMBL_OP_PARENTHESES}{BLANKSPC}){OPERATIONS_ALL}({STXSYMBL_CL_PARENTHESES}|{BLANKSPC}{STXSYMBL_CL_PARENTHESES}){BLANKSPC}({RSVW_THEN}|{BLANKSPC}{RSVW_THEN}{BLANKSPC}|{BLANKSPC}{RSVW_THEN})({BLANKSPC}{LINEBRK}{RSVW_BEGIN}|{BLANKSPC}{LINEBRK}{BLANKSPC}{RSVW_BEGIN}|{LINEBRK}{BLANKSPC}{RSVW_BEGIN}{BLANKSPC}|{LINEBRK}{RSVW_BEGIN}{BLANKSPC}|{BLANKSPC}{RSVW_BEGIN}|{BLANKSPC}{LINEBRK}{RSVW_BEGIN}|{BLANKSPC}{LINEBRK}{BLANKSPC}{RSVW_BEGIN}{BLANKSPC})
+
 
 
 /*Object Reserved Words*/
@@ -289,7 +298,7 @@ UsrOperations_wOperators ({ENTERO}|{REAL}|{IDENTIFICADOR}|{STRING_TEXT})({OPRT_A
 
 
 {UsrOperations_wOperators} GetToken(yytext,UsrOperations,yylineno);
-
+{Usr_WHILE}                GetToken(yytext,Usr_WHILE,yylineno);
 
 %%
 

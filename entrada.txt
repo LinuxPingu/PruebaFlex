@@ -4,3 +4,4 @@ aaaa
 55.55 
 Holamundo
 a = 6-3;
+while (a>1) then begin 

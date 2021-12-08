@@ -17,7 +17,8 @@ enum token_types {
 	LINEBRK,
 	OPERATION,
 	STRING,
-	UsrOperations
+	UsrOperations,
+	Usr_WHILE 
 }; typedef token_types Token_type;
 
 struct token{

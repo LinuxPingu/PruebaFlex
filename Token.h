@@ -18,7 +18,9 @@ enum token_types {
 	OPERATION,
 	STRING,
 	UsrOperations,
-	Usr_WHILE 
+	Usr_WHILE,
+	Usr_IF,
+	Usr_FOR  
 }; typedef token_types Token_type;
 
 struct token{

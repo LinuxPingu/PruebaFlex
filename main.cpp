@@ -125,6 +125,17 @@ void GetToken(string lexema, Token_type tipo, int linea) {
 	tmpToken->value = new string(lexema);
 	tmpToken->lnum = linea;
 	tmpToken->type = tipo;
+
+	/*  -- BORRAR DESPUES -- */
+
+	cout<<"  -- Resultado de Token -- "<<endl;
+	cout<<" * Valor: "<< lexema <<endl;
+	cout<<" * NoLinea: "<< tmpToken->lnum <<endl;
+	cout<<" * Type: "<< tmpToken->type <<endl;
+    cout<<"         ----             "<<endl;
+
+	/*        -- --          */
+
 	tokens_queue.push(tmpToken);
 }
 

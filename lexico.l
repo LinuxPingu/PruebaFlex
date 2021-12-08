@@ -101,28 +101,6 @@ RSVW_TRY             "try"
 
 /*   -- END OF RSVW --    */
 
-/*Arithmetic Operators*/
-
-OPRT_ADD               "+"
-OPRT_SUBSTR            "-"
-OPRT_MULT              "*"
-OPRT_DIV               "/"
-OPRT_RESI              "%"
-
-/*  -- Relational Operators -- */
-
-OPRT_EQUAL             "="
-OPRT_NOTEQUAL          "<>"
-OPRT_GREATERTHAN       "<"
-OPRT_SMALLERTHAN       ">"
-OPRT_GREATEREQUAL      ">="
-OPRT_SMALLEREQUAL      "<="
-OPRT_APEND             "+="
-OPRT_SET_NEW_VAL       ":="
-
-
-/* -- END OF OPRT --*/
-
 
 /*SINTAX SYMBOLS*/
 
@@ -162,10 +140,26 @@ DTTYPE_RECORD                     "record"
 /* -- END OF DATA TYPES  --*/
 
 DIGITO        [0-9]
-ENTERO        [DIGITO]+
-REAL          [DIGITO]+"."[DIGITO]+
+ENTERO        [0-9]+
+REAL          [0-9]+"."[0-9]+
+STRING_TEXT    (\"[^\n"]*\"|\'[^\n']*\')
 IDENTIFICADOR [_a-zA-Z][_a-zA-Z0-9]{0,32}
-BLANKSPC      [ \t\n]+
+BLANKSPC      [ \t]+
+LINEBRK       [\n]+
+
+/*All Arithmetic Operators*/
+
+OPRT_ALL  ("+"|"-"|"*"|"/"|"%"|"="|"<>"|"<"|">"|">="|"<="|"+="|":=")
+
+/*Arithmetic Operations*/
+
+OPERATIONS_ALL ({ENTERO}|{REAL}|{IDENTIFICADOR}|{STRING_TEXT})([ \t]+{OPRT_ALL}[ \t]+|[ \t]+{OPRT_ALL}|{OPRT_ALL}[ \t]+|{OPRT_ALL})({ENTERO}|{REAL}|{IDENTIFICADOR}|{STRING_TEXT})
+
+UsrOperations_wOperators ({ENTERO}|{REAL}|{IDENTIFICADOR}|{STRING_TEXT})({OPRT_ALL}|{BLANKSPC}{OPRT_ALL}|{OPRT_ALL}{BLANKSPC}|{BLANKSPC}{OPRT_ALL}{BLANKSPC})({OPERATIONS_ALL}(";"|[ \t]+";"))
+
+/* -- END OF OPRT --*/
+
+
 
 %%
 
@@ -250,19 +244,8 @@ BLANKSPC      [ \t\n]+
 
 
 
-{OPRT_ADD}              GetToken(yytext,OPRT,yylineno);         
-{OPRT_SUBSTR}           GetToken(yytext,OPRT,yylineno);
-{OPRT_MULT}             GetToken(yytext,OPRT,yylineno);
-{OPRT_DIV}              GetToken(yytext,OPRT,yylineno);
-{OPRT_RESI}             GetToken(yytext,OPRT,yylineno);
-{OPRT_EQUAL}            GetToken(yytext,OPRT,yylineno);
-{OPRT_NOTEQUAL}         GetToken(yytext,OPRT,yylineno);
-{OPRT_GREATERTHAN}      GetToken(yytext,OPRT,yylineno);
-{OPRT_SMALLERTHAN}      GetToken(yytext,OPRT,yylineno);
-{OPRT_GREATEREQUAL}     GetToken(yytext,OPRT,yylineno);
-{OPRT_SMALLEREQUAL}     GetToken(yytext,OPRT,yylineno);
-{OPRT_APEND}            GetToken(yytext,OPRT,yylineno);
-{OPRT_SET_NEW_VAL}      GetToken(yytext,OPRT,yylineno);
+{OPRT_ALL}              GetToken(yytext,OPERATOR,yylineno);         
+{OPERATIONS_ALL}        GetToken(yytext,OPERATION,yylineno);  
 
 
 
@@ -296,9 +279,17 @@ BLANKSPC      [ \t\n]+
 {DTTYPE_SET}                    GetToken(yytext,DTTYPE,yylineno);
 {DTTYPE_RECORD}                 GetToken(yytext,DTTYPE,yylineno);
 
-
+{DIGITO}                        GetToken(yytext,DIGIT,yylineno);                
 {ENTERO}                GetToken(yytext,INTEGER,yylineno);
+{REAL}                  GetToken(yytext,REAL,yylineno);
 {IDENTIFICADOR}         GetToken(yytext,IDENTIFIER,yylineno);
 {BLANKSPC}              GetToken(yytext,EMPTYSPC,yylineno);
+{LINEBRK}               GetToken(yytext,LINEBRK,yylineno);
+{STRING_TEXT}           GetToken(yytext,STRING,yylineno);
+
+
+{UsrOperations_wOperators} GetToken(yytext,UsrOperations,yylineno);
+
+
 %%
 

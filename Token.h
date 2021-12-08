@@ -1,7 +1,23 @@
 #include <string>
 
 enum token_types {
-	DIGIT, IDENTIFIER, INTEGER, FLOAT, RSVWORD, OPRT, EMPTYSPC, STXSymbl, FUNTC, DTTYPE, TESTTKN
+	DIGIT, 
+	IDENTIFIER, 
+	INTEGER, 
+	FLOAT, 
+	RSVWORD, 
+	OPERATOR, 
+	EMPTYSPC, 
+	STXSymbl, 
+	FUNTC, 
+	DTTYPE, 
+	TESTTKN, 
+	REAL, 
+	ENTERO,
+	LINEBRK,
+	OPERATION,
+	STRING,
+	UsrOperations
 }; typedef token_types Token_type;
 
 struct token{

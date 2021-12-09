@@ -1,11 +1,13 @@
-1 + 1
-+
-1+1
-1+ 1
-AC14 + 18
-a = 1+2;
+program whileLoop;
+var
+   a: integer;
 
-if (A > 8B) then begin
-
-'HOLA1
-HOLA2'
+begin
+   a := 10;
+   while  (a < 20) then
+   
+   begin
+      writeln('value of a: ', a);
+      a := a + 1;
+   end;
+end.

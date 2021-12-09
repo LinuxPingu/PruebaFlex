@@ -154,19 +154,20 @@ REAL          [0-9]+"."[0-9]+
 STRING_TEXT    (\"[^\n"]*\"|\'[^\n']*\')
 IDENTIFICADOR [_a-zA-Z][_a-zA-Z0-9]{0,32}
 BLANKSPC      [ \t]+
+BLANKSPCCUSTOM [ \t]
 LINEBRK       [\n]+
 LETRA  [A-Za-z0-9]
 PALABRA {LETRA}+
 ORACION ({PALABRA}[ ])*{PALABRA}\.
 
-EOU_BadEnd ({STXSYMBL_SNLG_QUOTE}{BLANKSPC}*){ORACION}
-EOU_BadStart {ORACION}({STXSYMBL_SNLG_QUOTE}|{BLANKSPC}{STXSYMBL_SNLG_QUOTE})
+EOU_BadEnd   (['][ ]*([_A-Za-z0-9]*[ ]*[^'])*)
+EOU_BadStart [^'\n]([_A-Za-z0-9]*[ ]*)*[']
 
 
 
 /*All Arithmetic Operators*/
 
-OPRT_ALL  ("+"|"-"|"*"|"/"|"%"|"="|"<>"|"<"|">"|">="|"<="|"+="|":=")
+OPRT_ALL  ("+"|"-"|"*"|"/"|"%"|"="|"<>"|"<"|">"|">="|"<="|"+="|":="|":")
 
 /*Arithmetic Operations*/
 
@@ -180,6 +181,13 @@ UsrOperations_wOperators ({ENTERO}|{REAL}|{IDENTIFICADOR}|{STRING_TEXT})({OPRT_A
  
 %%
 
+
+{STXSYMBL_OP_PARENTHESES}       GetToken(yytext,STXSymbl,yylineno);
+{STXSYMBL_CL_PARENTHESES}       GetToken(yytext,STXSymbl,yylineno);
+{STXSYMBL_OP_SQR_PARENTHESES}   GetToken(yytext,STXSymbl,yylineno);
+{STXSYMBL_CL_SQR_PARENTHESES}   GetToken(yytext,STXSymbl,yylineno);
+{STXSYMBL_NXT_ARG}              GetToken(yytext,STXSymbl,yylineno);
+{STXSYMBL_END_ARG}              GetToken(yytext,STXSymbl,yylineno);
 
 {EOU_BadEnd}            GetToken(yytext,EOU,yylineno);
 {EOU_BadStart}          GetToken(yytext,EOU,yylineno);
@@ -269,14 +277,6 @@ UsrOperations_wOperators ({ENTERO}|{REAL}|{IDENTIFICADOR}|{STRING_TEXT})({OPRT_A
 {OPERATIONS_ALL}        GetToken(yytext,OPERATION,yylineno);  
 
 
-
-{STXSYMBL_OP_PARENTHESES}       GetToken(yytext,STXSymbl,yylineno);
-{STXSYMBL_CL_PARENTHESES}       GetToken(yytext,STXSymbl,yylineno);
-{STXSYMBL_OP_SQR_PARENTHESES}   GetToken(yytext,STXSymbl,yylineno);
-{STXSYMBL_CL_SQR_PARENTHESES}   GetToken(yytext,STXSymbl,yylineno);
-{STXSYMBL_SNLG_QUOTE}           GetToken(yytext,STXSymbl,yylineno);
-{STXSYMBL_NXT_ARG}              GetToken(yytext,STXSymbl,yylineno);
-{STXSYMBL_END_ARG}              GetToken(yytext,STXSymbl,yylineno);
 
 
 {DTTYPE_INTEGER}                GetToken(yytext,DTTYPE,yylineno);   

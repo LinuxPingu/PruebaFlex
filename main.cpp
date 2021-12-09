@@ -120,6 +120,7 @@ int main(int argc, char* argvs[]) {
 
 
 
+
 void GetToken(string lexema, Token_type tipo, int linea) {
 	tmpToken = new token();
 	tmpToken->value = new string(lexema);
@@ -131,7 +132,7 @@ void GetToken(string lexema, Token_type tipo, int linea) {
 	cout<<"  -- Resultado de Token -- "<<endl;
 	cout<<" * Valor: "<< lexema <<endl;
 	cout<<" * NoLinea: "<< tmpToken->lnum <<endl;
-	cout<<" * Type: "<< tmpToken->type <<endl;
+	cout<<" * TypeNo: "<< tmpToken->type <<endl;
     cout<<"         ----             "<<endl;
 
 	/*        -- --          */

@@ -155,6 +155,13 @@ STRING_TEXT    (\"[^\n"]*\"|\'[^\n']*\')
 IDENTIFICADOR [_a-zA-Z][_a-zA-Z0-9]{0,32}
 BLANKSPC      [ \t]+
 LINEBRK       [\n]+
+LETRA  [A-Za-z0-9]
+PALABRA {LETRA}+
+ORACION ({PALABRA}[ ])*{PALABRA}\.
+
+EOU_BadEnd ({STXSYMBL_SNLG_QUOTE}{BLANKSPC}*){ORACION}
+EOU_BadStart {ORACION}({STXSYMBL_SNLG_QUOTE}|{BLANKSPC}{STXSYMBL_SNLG_QUOTE})
+
 
 
 /*All Arithmetic Operators*/
@@ -169,8 +176,13 @@ UsrOperations_wOperators ({ENTERO}|{REAL}|{IDENTIFICADOR}|{STRING_TEXT})({OPRT_A
 
 /* -- END OF OPRT --*/
 
+
+ 
 %%
 
+
+{EOU_BadEnd}            GetToken(yytext,EOU,yylineno);
+{EOU_BadStart}          GetToken(yytext,EOU,yylineno);
 
 {RSVW_ABSOLUTE}         GetToken(yytext,RSVWORD,yylineno);
 {RSVW_AND}              GetToken(yytext,RSVWORD,yylineno);     

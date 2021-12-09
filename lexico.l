@@ -155,7 +155,14 @@ STRING_TEXT    (\"[^\n"]*\"|\'[^\n']*\')
 IDENTIFICADOR [_a-zA-Z][_a-zA-Z0-9]{0,32}
 BLANKSPC      [ \t]+
 LINEBRK       [\n]+
-ERROR_ID      [0-9][_a-zA-Z][_a-zA-Z0-9]{0,32}
+
+LETRA [A-Za-z0-9]
+PALABRA {LETRA}+
+ORACION ({PALABRA}[ ])*
+
+ERROR_ID      ({ENTERO}|{REAL})[_a-zA-Z][_a-zA-Z0-9]
+ERROR_STR     ("'"{ORACION}|{ORACION}"'"|'"{BLANKSPC}{ORACION}|{ORACION}{BLANKSPC}"'")
+
 /*All Arithmetic Operators*/
 
 OPRT_ALL  ("+"|"-"|"*"|"/"|"%"|"="|"<>"|"<"|">"|">="|"<="|"+="|":=")

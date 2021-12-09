@@ -20,7 +20,8 @@ enum token_types {
 	UsrOperations,
 	Usr_WHILE,
 	Usr_IF,
-	Usr_FOR  
+	Usr_FOR,
+	ERROR  
 }; typedef token_types Token_type;
 
 struct token{

@@ -156,12 +156,6 @@ IDENTIFICADOR [_a-zA-Z][_a-zA-Z0-9]{0,32}
 BLANKSPC      [ \t]+
 LINEBRK       [\n]+
 
-LETRA [A-Za-z0-9]
-PALABRA {LETRA}+
-ORACION ({PALABRA}[ ])*
-
-ERROR_ID      ({ENTERO}|{REAL})[_a-zA-Z][_a-zA-Z0-9]
-ERROR_STR     ("'"{ORACION}|{ORACION}"'"|'"{BLANKSPC}{ORACION}|{ORACION}{BLANKSPC}"'")
 
 /*All Arithmetic Operators*/
 
@@ -175,9 +169,8 @@ UsrOperations_wOperators ({ENTERO}|{REAL}|{IDENTIFICADOR}|{STRING_TEXT})({OPRT_A
 
 /* -- END OF OPRT --*/
 
-
-
 %%
+
 
 {RSVW_ABSOLUTE}         GetToken(yytext,RSVWORD,yylineno);
 {RSVW_AND}              GetToken(yytext,RSVWORD,yylineno);     
@@ -308,5 +301,6 @@ UsrOperations_wOperators ({ENTERO}|{REAL}|{IDENTIFICADOR}|{STRING_TEXT})({OPRT_A
 {Usr_WHILE}                GetToken(yytext,Usr_WHILE,yylineno);
 {Usr_IF}                   GetToken(yytext,Usr_IF,yylineno);
 {Usr_FOR}                  GetToken(yytext,Usr_FOR,yylineno);
+
 %%
 

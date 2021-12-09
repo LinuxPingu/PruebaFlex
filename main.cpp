@@ -3,38 +3,13 @@
 #include <iostream>
 #include <fstream>
 #include <queue>
-#include <string.h>
 #include <chrono>
 #include <ctime> 
 #include <sstream>
 #include "Token.h"
+#include "Latex.h"
 
-using namespace std;
 using namespace chrono;
-
-const string latexExtension = ".tex";
-
-const string PDFHeader = R"(\documentclass[letterpaper,twoside,12pt]{article}
-
-\usepackage[T1]{fontenc}
-\usepackage{amsmath}
-\usepackage[latin1]{inputenc}
-
-\title{Analizador Léxico}
-)";
-
-const string PDFCover = R"(\author{Jesé Chávez CARNET \\  Daniel Hernandez CARNET \\ \\}
-
-\begin{document}
-\begin{titlepage}
-\maketitle
-\sffamily
-\begin{align*}
-\text{\textbf{Profesor:} Nombre algo largo alalal lddjlksjdk} \\ 
-\end{align*}
-\end{titlepage}
-\end{document})";
-
 
 string* pStr;
 string outputFileName = "";
@@ -43,7 +18,9 @@ Token tmpToken;
 queue<Token> tokens_queue;
 
 void GetToken(string lexema, token tipo, int linea);
+void ReadCover(ofstream *outfile, string coverName);
 void CreateOutputFile(string name);
+
 
 /*El archivo debe pasarse por parametro*/
 int main(int argc, char* argvs[]) {
@@ -127,6 +104,18 @@ void GetToken(string lexema, Token_type tipo, int linea) {
 	tokens_queue.push(tmpToken);
 }
 
+string ReadCover(string coverName) {
+	ifstream inCover(coverName);
+	string readLine;
+	string result ="";
+
+	while (getline(inCover, readLine)) {
+		cout << readLine << endl;
+		result.append(readLine);
+	}
+	return result;
+}
+
 void CreateOutputFile(string nombre) {
 	auto start_time = system_clock::now();
 	time_t end_time = system_clock::to_time_t(start_time);
@@ -135,20 +124,28 @@ void CreateOutputFile(string nombre) {
 	string creation_time = ss.str();
 
 	ofstream outFile((nombre + latexExtension));
-	string textToPDFCommand = "pdflatex";
-	textToPDFCommand.append(" --jobname " + nombre);
-	textToPDFCommand.append(" ./" + nombre);
+	string textToPDFCommand = cmdlatexmk;
+	textToPDFCommand.append(lmkjobnameParam + nombre);
+	textToPDFCommand.append(lmkIvokepdflParam);
+	textToPDFCommand.append(" ./" + nombre + latexExtension);
 
 	char* cmd = &textToPDFCommand[0];
 
 	/*LATEX*/
 	outFile << PDFHeader;
 
-	outFile << "\\date {Generado : " + creation_time + "}";
-
 	outFile << PDFCover;
+
+	outFile << PDFContentTable;
+
+	outFile << PDFScannerSection;
+
+	outFile << PDFSHistSection;
+
+	outFile << PDFEOF;
 
 	outFile.close();
 
 	system(cmd);
 }
+

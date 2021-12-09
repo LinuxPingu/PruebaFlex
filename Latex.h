@@ -27,7 +27,6 @@ const string PDFHeader = R"(\documentclass[a4paper,12pt]{article}
 \usepackage{fancyhdr}
 \usepackage{pgfplots}
 
-
 \graphicspath{ {images/} }
 \setlength{\TPHorizModule}{1cm}
 \setlength{\TPVertModule}{1cm}
@@ -47,7 +46,10 @@ const string PDFHeader = R"(\documentclass[a4paper,12pt]{article}
 
 \definecolor{MoradoChogath}{rgb}{0.42,0.08,0.78}
 
+%Color de resaltado%
 \sethlcolor{MoradoChogath}
+
+\pgfplotsset{width=12cm,compat=1.9}
 )";
 
 const string PDFCover = R"(
@@ -116,11 +118,19 @@ const string PDFSHistSection = R"(
 
 	\begin{tikzpicture}
 	\begin{axis}[
-		ymin=0, ymax=55,
-		minor y tick num = 3,
-		area style,
+			ymin=0, ymax=55,
+			minor y tick num = 3,
+			x tick label style={
+				/pgf/number format/1000 sep=},
+			ylabel=Apariciones,
+			enlargelimits=0.05,
+			legend style={at={(0.5,-0.1)},
+			anchor=north,legend columns=-1},
+			ybar interval=1,
 		]
-	\addplot+[ybar interval,mark=no] plot coordinates { (0, 5) (5, 35) (10, 50) (15, 30) (20, 15) (25, 0) };
+	\addplot+[ybar interval] plot coordinates { (0, 5) (5, 35) (10, 50) (15, 30) (20, 15) (25, 0) };
+	\legend{Token A,Token B}
+
 	\end{axis}
 	\end{tikzpicture}	
 

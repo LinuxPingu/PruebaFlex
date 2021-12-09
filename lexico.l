@@ -31,7 +31,7 @@ RSVW_DOWNTO        "downto"
 RSVW_ELSE          "else"
 RSVW_END           "end"
 
-
+ 
 
 RSVW_FUNCTION         "function"
 RSVW_GOTO             "goto"
@@ -155,7 +155,7 @@ STRING_TEXT    (\"[^\n"]*\"|\'[^\n']*\')
 IDENTIFICADOR [_a-zA-Z][_a-zA-Z0-9]{0,32}
 BLANKSPC      [ \t]+
 LINEBRK       [\n]+
-
+ERROR_ID      [0-9][_a-zA-Z][_a-zA-Z0-9]{0,32}
 /*All Arithmetic Operators*/
 
 OPRT_ALL  ("+"|"-"|"*"|"/"|"%"|"="|"<>"|"<"|">"|">="|"<="|"+="|":=")

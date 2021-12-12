@@ -25,7 +25,9 @@ const string PDFHeader = R"(\documentclass[a4paper,12pt]{article}
 \usepackage{xcolor}
 \usepackage{soul}
 \usepackage{fancyhdr}
+\usepackage{pgf-pie}   
 \usepackage{pgfplots}
+
 
 \graphicspath{ {images/} }
 \setlength{\TPHorizModule}{1cm}
@@ -118,24 +120,47 @@ const string PDFSHistSection = R"(
 
 	\begin{tikzpicture}
 	\begin{axis}[
-			ymin=0, ymax=55,
-			minor y tick num = 3,
-			x tick label style={
-				/pgf/number format/1000 sep=},
-			ylabel=Apariciones,
-			enlargelimits=0.05,
-			legend style={at={(0.5,-0.1)},
-			anchor=north,legend columns=-1},
-			ybar interval=1,
+			legend pos=outer north east,  %-- Colocacion de la leyenda en la parte superior derecha del grafico%
+			%legend style={draw=none,at={(0.5,-0.15)}, text width=2.5cm,%
+			%anchor=north,legend columns=-1},	 Colocacion de la leyenda en la parte inferior del grafico%		
+			axis on top,
+			bar width = 1cm,
+			symbolic x coords = {Token A,Token B,Token C,T1,T2,T3,T4,T5},
+			xticklabel=\empty,
+		    ytick distance=1,
+		    xtick distance=1,
+			every axis plot/.append style={
+			  ybar,
+			  bar shift=0pt,
+			  fill
+			}
 		]
-	\addplot+[ybar interval] plot coordinates { (0, 5) (5, 35) (10, 50) (15, 30) (20, 15) (25, 0) };
-	\legend{Token A,Token B}
+
+	\addplot[MoradoChogath,mark=*] coordinates {(Token A,5)};
+	\addplot[green] coordinates {(Token B,15)};
+	\addplot[red] coordinates {(Token C,10)};
+	\addplot coordinates {(T1,8)};
+	\addplot coordinates {(T2,10)};
+	\addplot coordinates {(T3,2)};
+	\addplot coordinates {(T4,1)};
+	\addplot coordinates {(T5,12)};
+	%\addplot[MoradoChogath] coordinates {(T5,12)}; Puedo seleccionar los colores de mi plot, de esa forma latex no pone sus cosas feas %
+
+	\legend{Token A,Token B,Token C}
 
 	\end{axis}
 	\end{tikzpicture}	
 
 	\newpage 
 	\subsection{Diagrama circular}
+	\begin{tikzpicture}
+		\pie{22.97/Los Angeles Lakers,
+		22.97/Boston Celtics,
+		8.11/Golden State Warriors,
+		8.11/Chicago Bulls,
+		6.76/San Antonio Spurs,
+		31.07/Other Teams}
+	\end{tikzpicture}	
 )";
 
 const string PDFEOF= R"(

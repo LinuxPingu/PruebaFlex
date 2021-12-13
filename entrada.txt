@@ -1,5 +1,5 @@
-identico 
-42 
-aaaa 
-55.55 
-Holamundo
+identificador
+1 + 1
+boolean
+3.2
+dispinterface is library

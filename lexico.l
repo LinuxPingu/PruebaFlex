@@ -163,6 +163,7 @@ DTTYPE_RECORD                     "record"
 
 
 ENTERO        [0-9]+
+REAL          [0-9]+[.][0-9]+
 IDENTIFICADOR [_a-zA-Z][_a-zA-Z0-9]{0,32}
 BLANKSPC      [ \t\n]+
 
@@ -297,6 +298,7 @@ BLANKSPC      [ \t\n]+
 
 
 {ENTERO}                GetToken(yytext,INTEGER,yylineno);
+{REAL}					GetToken(yytext,FLOAT,yylineno);
 {IDENTIFICADOR}         GetToken(yytext,IDENTIFIER,yylineno);
 {BLANKSPC}              GetToken(yytext,EMPTYSPC,yylineno);
 %%

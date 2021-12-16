@@ -22,7 +22,7 @@ RSVW_AND           "and"
 
 RSVW_ASM           "asm"
 RSVW_BEGIN         "begin"
-RSVW_CASE          "case"
+RSVW_CASE          "case"0
 RSVW_CONST         "const"
 RSVW_CONSTRUCTOR   "contructor"
 RSVW_DESTRUCTOR    "detructor"
@@ -97,6 +97,8 @@ RSVW_RAISE           "raise"
 RSVW_RESOURCESTRING  "resourcestring"
 RSVW_THREADVAR       "threadvar"
 RSVW_TRY             "try"
+RSVW_WRITELINE       "writeln"
+RSVW_WRITE		     "write"
 
 
 /*   -- END OF RSVW --    */
@@ -111,15 +113,13 @@ OPRT_RESI              "%"
 
 /*  -- Relational Operators -- */
 
-OPRT_EQUAL             "="
-OPRT_NOTEQUAL          "<>"
-OPRT_GREATERTHAN       "<"
-OPRT_SMALLERTHAN       ">"
-OPRT_GREATEREQUAL      ">="
-OPRT_SMALLEREQUAL      "<="
 OPRT_APEND             "+="
 OPRT_SET_NEW_VAL       ":="
 
+/*Comparators*/
+
+COMPARATOR				("="|"<>"|"<"|">"|">="|"<=")
+OPRT_ALL  				("+"|"-"|"*"|"/"|"%"|"+="|":="|":")
 
 /* -- END OF OPRT --*/
 
@@ -162,10 +162,26 @@ DTTYPE_RECORD                     "record"
 /* -- END OF DATA TYPES  --*/
 
 
+CHAR_TEXT	  '.'
 ENTERO        [0-9]+
 REAL          [0-9]+[.][0-9]+
 IDENTIFICADOR [_a-zA-Z][_a-zA-Z0-9]{0,32}
-BLANKSPC      [ \t\n]+
+STRING_TEXT   (\"([\n]*[^"][\n]*)*\"|\'([\n]*[^'][\n]*)*\')
+BLANKSPC      [ \t]+
+BLANKSPCCUSTOM [ \t]
+LINEBRK       [\n]+
+LETRA  [A-Za-z0-9]
+PALABRA {LETRA}+
+ORACION ({PALABRA}[ ])*{PALABRA}\.
+
+/* -- ERROR TOKENS  --*/
+
+EOU_BadEnd   (['][ ]*([_A-Za-z0-9]*[ ]*[^'])*)
+EOU_BadStart [^'\n( ]([ ]*[_A-Za-z0-9]*[ ]*)*[']
+EOU_BadEndDoubleQuote   (["][ ]*([_A-Za-z0-9]*[ ]*[^"])*)
+EOU_BadStartDoubleQuote [^"\n]([_A-Za-z0-9]*[ ]*)*["]
+BAD_IDENTIFIER [0-9]+[._a-zA-Z][._a-zA-Z0-9]{0,32}
+BAD_IDENTIFIERSIZE  [_a-zA-Z][_a-zA-Z0-9]{33,1000}
 
 %%
 
@@ -226,7 +242,8 @@ BLANKSPC      [ \t\n]+
 {RSVW_WITH}             GetToken(yytext,RSVWORD,yylineno);
 {RSVW_XOR}              GetToken(yytext,RSVWORD,yylineno);
 
-
+{RSVW_WRITE}			GetToken(yytext,RSVWORD,yylineno);
+{RSVW_WRITELINE}		GetToken(yytext,RSVWORD,yylineno);
 {RSVW_AS}               GetToken(yytext,RSVWORD,yylineno);  
 {RSVW_CLASS}            GetToken(yytext,RSVWORD,yylineno);
 {RSVW_DISPINTERFACE}    GetToken(yytext,RSVWORD,yylineno);
@@ -249,20 +266,8 @@ BLANKSPC      [ \t\n]+
 {RSVW_TRY}              GetToken(yytext,RSVWORD,yylineno);
 
 
-
-{OPRT_ADD}              GetToken(yytext,OPRT,yylineno);         
-{OPRT_SUBSTR}           GetToken(yytext,OPRT,yylineno);
-{OPRT_MULT}             GetToken(yytext,OPRT,yylineno);
-{OPRT_DIV}              GetToken(yytext,OPRT,yylineno);
-{OPRT_RESI}             GetToken(yytext,OPRT,yylineno);
-{OPRT_EQUAL}            GetToken(yytext,OPRT,yylineno);
-{OPRT_NOTEQUAL}         GetToken(yytext,OPRT,yylineno);
-{OPRT_GREATERTHAN}      GetToken(yytext,OPRT,yylineno);
-{OPRT_SMALLERTHAN}      GetToken(yytext,OPRT,yylineno);
-{OPRT_GREATEREQUAL}     GetToken(yytext,OPRT,yylineno);
-{OPRT_SMALLEREQUAL}     GetToken(yytext,OPRT,yylineno);
-{OPRT_APEND}            GetToken(yytext,OPRT,yylineno);
-{OPRT_SET_NEW_VAL}      GetToken(yytext,OPRT,yylineno);
+{OPRT_ALL}              GetToken(yytext,OPRT,yylineno);
+{COMPARATOR}			GetToken(yytext,COMPARATOR,yylineno);
 
 
 
@@ -296,10 +301,21 @@ BLANKSPC      [ \t\n]+
 {DTTYPE_SET}                    GetToken(yytext,DTTYPE,yylineno);
 {DTTYPE_RECORD}                 GetToken(yytext,DTTYPE,yylineno);
 
-
+{BLANKSPC}              GetToken(yytext,EMPTYSPC,yylineno);
+{LINEBRK}               GetToken(yytext,LINEBRK,yylineno);
+{CHAR_TEXT}				GetToken(yytext,CHAR,yylineno);
+{STRING_TEXT}			GetToken(yytext,STRING,yylineno);
 {ENTERO}                GetToken(yytext,INTEGER,yylineno);
 {REAL}					GetToken(yytext,FLOAT,yylineno);
 {IDENTIFICADOR}         GetToken(yytext,IDENTIFIER,yylineno);
-{BLANKSPC}              GetToken(yytext,EMPTYSPC,yylineno);
+
+
+{BAD_IDENTIFIER}		  GetToken(yytext,BADIDENTIFIER,yylineno);
+{BAD_IDENTIFIERSIZE}	  GetToken(yytext,BADIDENTIFIERSIZE,yylineno);
+{EOU_BadEnd}			  GetToken(yytext,BADSTREND,yylineno);
+{EOU_BadStart}			  GetToken(yytext,BADSTRSTART,yylineno);
+{EOU_BadStartDoubleQuote} GetToken(yytext,BADSTRSTART,yylineno);
+{EOU_BadEndDoubleQuote}   GetToken(yytext,BADSTREND,yylineno);
+
 %%
 

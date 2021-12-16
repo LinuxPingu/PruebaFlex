@@ -9,17 +9,19 @@
 #include <sstream>
 #include "Token.h"
 #include "Latex.h"
+#include <iomanip>
 
 using namespace chrono;
 
 
 
+int plot_token_counter = 0;
 string* pStr;
 string outputFileName = "";
 string defaultFileName = "Scan";
 Token tmpToken;
 queue<Token> tokens_queue;
-unordered_map<string, pair<int,int>> hist_map;
+unordered_map<string, pair<int,int>> plot_map;
 
 void GetToken(string lexema, token tipo, int linea);
 void CreateOutputFile(string name);
@@ -65,15 +67,15 @@ int main(int argc, char* argvs[]) {
 		ifstream in(argvs[2]);
 
 		/*Init Hist hash map*/
-		hist_map[GetStringForEnum(IDENTIFIER)];
-		hist_map[GetStringForEnum(INTEGER)];
-		hist_map[GetStringForEnum(FLOAT)];
-		hist_map[GetStringForEnum(RSVWORD)];
-		hist_map[GetStringForEnum(OPRT)];
-		hist_map[GetStringForEnum(DTTYPE)];
-		hist_map[GetStringForEnum(COMPARATOR)];
-		hist_map[GetStringForEnum(STRING)];
-		hist_map[GetStringForEnum(CHAR)];
+		plot_map[GetStringForEnum(IDENTIFIER)];
+		plot_map[GetStringForEnum(INTEGER)];
+		plot_map[GetStringForEnum(FLOAT)];
+		plot_map[GetStringForEnum(RSVWORD)];
+		plot_map[GetStringForEnum(OPRT)];
+		plot_map[GetStringForEnum(DTTYPE)];
+		plot_map[GetStringForEnum(COMPARATOR)];
+		plot_map[GetStringForEnum(STRING)];
+		plot_map[GetStringForEnum(CHAR)];
 
 		//Inicializacion del scanner
 		yyFlexLexer* lexer = new yyFlexLexer(&in);
@@ -87,19 +89,6 @@ int main(int argc, char* argvs[]) {
 		outputFileName != "" ? CreateOutputFile(outFileParam) : CreateOutputFile(defaultFileName);
 
 
-		//Analisis del output segun reglas, bloque de codigo temporal
-		size_t word_counter = tokens_queue.size();
-
-		cout << "---TOKENS--- " << endl;
-		for (size_t i = 0; i < word_counter; i++)
-		{
-			Token popped = tokens_queue.front();
-			cout << *popped->value << " -- " << GetStringForEnum(popped->type) << " ";
-
-			tokens_queue.pop();
-		}
-
-
 		return 0;
 	}
 	catch (const std::exception&)
@@ -107,7 +96,7 @@ int main(int argc, char* argvs[]) {
 		cout << "Unknown exception!" << endl;
 	}
 }
-
+	
 string GetStringForEnum(int enum_value) {
 	string tmp(enum_str[enum_value]);
 	return tmp;
@@ -127,30 +116,27 @@ void GetToken(string lexema, Token_type tipo, int linea) {
 	/*Hist Map Init*/
 	try
 	{	
-		int acumulator = hist_map.at(GetStringForEnum(tipo)).second;
-		cout << "Acumulator old value :" << acumulator << endl;
-		hist_map.at(GetStringForEnum(tipo)).first = tipo;
-		hist_map.at(GetStringForEnum(tipo)).second = (acumulator + 1);
-		cout << "Acumulator new value :" << hist_map.at(GetStringForEnum(tipo)).second << endl;
-		cout << "Added" << endl;
-		
+		int acumulator = plot_map.at(GetStringForEnum(tipo)).second;
+		plot_map.at(GetStringForEnum(tipo)).first = tipo;
+		plot_map.at(GetStringForEnum(tipo)).second = (acumulator + 1);
+		plot_token_counter++;
 	}
 	catch (const out_of_range& oor)
 	{
 		cerr << "Out of Range error: " << oor.what() << '\n';
 	}
 
+
 }
 
 string CreateHistSection() {
 	/*Add token types*/
-	int map_size = hist_map.size();
+	int map_size = plot_map.size();
 	int counter = 0;
 	string histsection = R"(symbolic x coords = {Identifier,Integer,Real,Keyword,Operator,Comparator,String,Char,DataType}])";
 	string appendplot = "";
 	string legend = R"(\legend{)";
-	for (auto& plot : hist_map) {
-		cout << "Token Type: " << plot.second.first << endl;
+	for (auto& plot : plot_map) {
 		appendplot = "\\addplot+[" + GetColorForEnum(plot.second.first) + "] coordinates{(" + plot.first + "," + to_string(plot.second.second) + ")}; \n";
 		histsection.append(appendplot);
 		counter++;
@@ -164,6 +150,52 @@ string CreateHistSection() {
 	histsection.append(R"(\end{axis} 
 	\end{tikzpicture})");
 	return histsection;
+}
+
+string CreatePieSection() {
+	string pie;
+	int token_counter = plot_token_counter;
+	int iterator = 0;
+	float tokenperc = 0.0;
+	ostringstream tokenpercstream;
+	string tokenpercstring;
+
+	tokenpercstream << fixed;
+	tokenpercstream << setprecision(2);
+
+	pie.append("\\pie[xshift=12cm,scale=2]{");
+	for (auto& plot : plot_map) {
+		tokenperc = ((static_cast<float>(plot.second.second)*100.00)/ static_cast<float>(token_counter));
+		tokenpercstream.str("");
+		tokenpercstream << tokenperc;
+		tokenpercstring = tokenpercstream.str();
+
+		iterator++;
+		iterator == plot_map.size() ? pie.append(tokenpercstring + "/" + plot.first + "\n") :
+				pie.append(tokenpercstring + "/" + plot.first + "," + "\n");
+	}
+	pie.append("}\n \\end{tikzpicture}");
+	return pie;
+}
+
+string CreateScannedCodeSection() {
+	string code = "";
+	queue<Token> code_copy = tokens_queue;
+	while (code_copy.size() != 0) {
+		Token tmp = code_copy.front();
+		if (tmp->type == RSVWORD) {
+			code.append("(*@\\textcolor{DBlue}{\\textbf{");
+			code.append(*(tmp->value));
+			code.append("}}@*)");
+		}
+		else {
+			code.append(*(tmp->value));
+		}
+		code_copy.pop();
+	}
+	code.append("\n \\end{lstlisting}");
+	cout << code;
+	return code;
 }
 
 void CreateOutputFile(string name) {
@@ -190,11 +222,19 @@ void CreateOutputFile(string name) {
 
 	outFile << PDFScannerSection;
 
+	outFile << PDFResultSection;
+
+	outFile << CreateScannedCodeSection();
+
 	outFile << PDFSHistSectionHeader;
 
 	outFile << CreateHistSection();
 
 	outFile << PDFSPieSectionHeader;
+
+	cout << CreatePieSection();
+
+	outFile << CreatePieSection();
 
 	outFile << PDFEOF;
 

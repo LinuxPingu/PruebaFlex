@@ -27,6 +27,7 @@ const string PDFHeader = R"(\documentclass[a4paper,12pt]{article}
 \usepackage{fancyhdr}
 \usepackage{pgf-pie}   
 \usepackage{pgfplots}
+\usepackage{listings}
 
 
 \graphicspath{ {images/} }
@@ -63,6 +64,9 @@ const string PDFHeader = R"(\documentclass[a4paper,12pt]{article}
 \sethlcolor{MoradoChogath}
 
 \pgfplotsset{width=14cm,compat=1.9}
+\lstset{
+    escapeinside={(*@}{@*)},
+}
 )";
 
 const string PDFCover = R"(
@@ -124,9 +128,16 @@ const string PDFScannerSection = R"(
 	\subsection{Flex}
 )";
 
-const string PDFSHistSectionHeader = R"(
+const string PDFResultSection = R"(
 	\newpage 
 	\section {Resultados}	
+	\subsection{Código escaneado}
+	\begin{lstlisting}
+
+)";
+
+const string PDFSHistSectionHeader = R"(
+	\newpage 
 	\subsection{Histograma}	
 
 	\begin{tikzpicture}
@@ -137,7 +148,8 @@ const string PDFSHistSectionHeader = R"(
 			axis on top,
 			bar width = 0.7cm,
 			xticklabel=\empty,
-		    ytick distance=1,
+		    ytick distance=5,
+			nodes near coords,
 		    xtick distance=1,
 			xticklabel style={rotate=90},
 			every axis plot/.append style={
@@ -150,13 +162,7 @@ const string PDFSHistSectionHeader = R"(
 const string PDFSPieSectionHeader = R"(	\newpage 
 										\subsection{Diagrama circular}
 										\begin{tikzpicture}
-											\pie{22.97/Los Angeles Lakers,
-											22.97/Boston Celtics,
-											8.11/Golden State Warriors,
-											8.11/Chicago Bulls,
-											6.76/San Antonio Spurs,
-											31.07/Other Teams}
-										\end{tikzpicture})";
+)";
 
 const string PDFEOF= R"(
 \end{document})";

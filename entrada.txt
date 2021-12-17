@@ -1,6 +1,6 @@
 PROGRAM EJER34;
 USES CRT;
-VAR num:INTEGER;
+VAR 9num:INTEGER;
 BEGIN
 ClrScr;
 WRITE ('Introduzca un numero entero: '); READLN (num);
@@ -21,5 +21,5 @@ READLN(num);
 IF (num mod 2 = 0) THEN
 WRITE('NUMERO PAR')
 ELSE
-WRITE('NUMERO IMPAR');
+WRITE('NUMERO IMPAR);
 END.

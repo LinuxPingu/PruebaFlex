@@ -99,6 +99,7 @@ RSVW_THREADVAR       "threadvar"
 RSVW_TRY             "try"
 RSVW_WRITELINE       "writeln"
 RSVW_WRITE		     "write"
+RSVW_READ			 "readln"
 
 
 /*   -- END OF RSVW --    */
@@ -199,6 +200,7 @@ BAD_IDENTIFIERSIZE  [_a-zA-Z][_a-zA-Z0-9]{33,1000}
 {RSVW_DOWNTO}           GetToken(yytext,RSVWORD,yylineno);
 {RSVW_ELSE}             GetToken(yytext,RSVWORD,yylineno);
 {RSVW_END}              GetToken(yytext,RSVWORD,yylineno);
+{RSVW_READ}				GetToken(yytext,RSVWORD,yylineno);
 
 
 {RSVW_FOR}              GetToken(yytext,RSVWORD,yylineno);

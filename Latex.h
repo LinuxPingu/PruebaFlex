@@ -1,7 +1,7 @@
 #include <string.h>
 using namespace std;
 
-const string cmdlatexmk = "latexmk";
+const string cmdlatexmk = "latexmk -f";
 
 const string cmdpdflatex = "pdflatex";
 
@@ -58,6 +58,8 @@ const string PDFHeader = R"(\documentclass[a4paper,12pt]{article}
 \definecolor{PYellow}{rgb}{1,0.81,0.33}
 \definecolor{PBlue}{rgb}{0.29,0.55,0.70}
 \definecolor{PPGreen}{rgb}{0.31,0.79,0.55}
+\definecolor{DGray}{rgb}{0.33,0.33,0.33}
+\definecolor{DPumpkin}{rgb}{0.80,0.48,0.4}
 
 
 %Color de resaltado%
@@ -66,6 +68,7 @@ const string PDFHeader = R"(\documentclass[a4paper,12pt]{article}
 \pgfplotsset{width=14cm,compat=1.9}
 \lstset{
     escapeinside={(*@}{@*)},
+	basicstyle=\sffamily\footnotesize,
 }
 )";
 

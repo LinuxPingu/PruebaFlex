@@ -107,6 +107,21 @@ string GetColorForEnum(int enum_value) {
 	return tmp;
 }
 
+string GetCodeColorForEnum(int enum_value) {
+	string tmp(enum_code_color[enum_value]);
+	return tmp;
+}
+
+string GetBoldForEnum(int enum_value) {
+	string tmp(enum_nbold[enum_value]);
+	return tmp;
+}
+
+string GetEmphForEnum(int enum_value) {
+	string tmp(enum_emph[enum_value]);
+	return tmp;
+}
+
 void GetToken(string lexema, Token_type tipo, int linea) {
 	tmpToken = new token();
 	tmpToken->value = new string(lexema);
@@ -178,23 +193,47 @@ string CreatePieSection() {
 	return pie;
 }
 
+void AppendBoldEmphAndColor(string& org, Token token) {
+	org.append("(*@\\textcolor{" + GetCodeColorForEnum(token->type) + "}{" + "\\textbf{" + +"\\emph{"+*(token->value) + "}}" + "}@*)");
+}
+
+void AppendBoldAndColor(string& org, Token token) {
+	org.append("(*@\\textcolor{" + GetCodeColorForEnum(token->type) + "}{" + "\\textbf{" + *(token->value) + "}" + "}@*)");
+}
+
+void AppendBold(string& org, Token token) {
+	org.append("(*@\\textbf{" + *(token->value) + "}@*)");
+}
+
+void AppendColor(string& org, Token token) {
+	org.append("(*@\\textcolor{" + GetCodeColorForEnum(token->type) + "}{" + *(token->value) + "}@*)");
+}
+
+
 string CreateScannedCodeSection() {
 	string code = "";
 	queue<Token> code_copy = tokens_queue;
+	
 	while (code_copy.size() != 0) {
 		Token tmp = code_copy.front();
-		if (tmp->type == RSVWORD) {
-			code.append("(*@\\textcolor{DBlue}{\\textbf{");
-			code.append(*(tmp->value));
-			code.append("}}@*)");
+		if (GetBoldForEnum(tmp->type) != "NAN" && GetCodeColorForEnum(tmp->type) != "Black" && GetEmphForEnum(tmp->type) != "NAN"){
+			AppendBoldEmphAndColor(code, tmp);
+		}
+		else if (GetBoldForEnum(tmp->type) != "NAN" && GetCodeColorForEnum(tmp->type) != "Black") {
+			AppendBoldAndColor(code, tmp);
+		}
+		else if (GetBoldForEnum(tmp->type) != "NAN") {
+			AppendBold(code, tmp);
+		}
+		else if(GetCodeColorForEnum(tmp->type) != "Black"){
+			AppendColor(code, tmp);
 		}
 		else {
 			code.append(*(tmp->value));
 		}
 		code_copy.pop();
 	}
-	code.append("\n \\end{lstlisting}");
-	cout << code;
+
 	return code;
 }
 
@@ -226,13 +265,13 @@ void CreateOutputFile(string name) {
 
 	outFile << CreateScannedCodeSection();
 
+	outFile << "\n \\end{lstlisting}";
+
 	outFile << PDFSHistSectionHeader;
 
 	outFile << CreateHistSection();
 
 	outFile << PDFSPieSectionHeader;
-
-	cout << CreatePieSection();
 
 	outFile << CreatePieSection();
 
@@ -241,7 +280,5 @@ void CreateOutputFile(string name) {
 	outFile.close();
 
 	system(cmd);
-
-	cout << CreateHistSection() << endl;
 }
 

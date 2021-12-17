@@ -2,31 +2,31 @@
 
 enum token_types {
 	DIGIT, IDENTIFIER, INTEGER, FLOAT, RSVWORD, OPRT, EMPTYSPC, STXSymbl, FUNTC, DTTYPE,
-	COMPARATOR,STRING,CHAR,BADIDENTIFIER,BADIDENTIFIERSIZE,BADSTRSTART,BADSTREND,LINEBRK
+	COMPARATOR,STRING,CHAR,BADIDENTIFIER,BADIDENTIFIERSIZE,BADSTRSTART,BADSTREND,LINEBRK,COMMENTTOKEN
 }; typedef token_types Token_type;
 
 static const char *enum_str[] =
 { "Digit", "Identifier", "Integer", "Real", "Keyword", "Operator", "BlankSpace","Syntax Symbol", "Function", "DataType",
-   "Comparator", "String", "Char","Bad identifier", "Bad identifier size","EOU STR START","EOU STR END","Line Break"};
+   "Comparator", "String", "Char","Bad identifier", "Bad identifier size","EOU STR START","EOU STR END","Line Break","COMMENT"};
 
 static const char *enum_color[] = {
 	"Black", "MoradoChogath", "LBlue", "PYellow", "DBlue", "LOrange", "Black", "Black", "Black", "LRed",
-	"PPGreen","PGreen","PBlue","Black","Black","Red","Red","Black"
+	"PPGreen","PGreen","PBlue","Black","Black","Red","Red","Black","Black"
 };
 
 static const char *enum_nbold[]{
 	"NAN","BOLD","NAN","NAN","BOLD","BOLD","NAN","BOLD","NAN","BOLD",
-	"BOLD","NAN","NAN","BOLD","BOLD","BOLD","BOLD","NAN"
+	"BOLD","NAN","NAN","BOLD","BOLD","BOLD","BOLD","NAN","BOLD"
 };
 
 static const char *enum_emph[]{
 	"NAN","NAN","NAN","NAN","NAN","NAN","NAN","NAN","NAN","NAN",
-	"NAN","NAN","NAN","EMPH","EMPH","EMPH","EMPH","NAN"
+	"NAN","NAN","NAN","EMPH","EMPH","EMPH","EMPH","NAN","NAN"
 };
 
 static const char *enum_code_color[] = {
 	"Black","PPGreen","LOrange","LOrange","DBlue","Black","Black","DGray","Black","MoradoChogath",
-	"Black","DPumpkin", "DPumpkin","LRed","LRed","LRed","LRed","Black"
+	"Black","DPumpkin", "DPumpkin","LRed","LRed","LRed","LRed","Black","MGreen"
 };
 
 struct token{

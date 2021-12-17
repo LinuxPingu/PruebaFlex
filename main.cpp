@@ -9,6 +9,7 @@
 #include <sstream>
 #include "Token.h"
 #include "Latex.h"
+#include <regex>
 #include <iomanip>
 
 using namespace chrono;
@@ -194,19 +195,27 @@ string CreatePieSection() {
 }
 
 void AppendBoldEmphAndColor(string& org, Token token) {
-	org.append("(*@\\textcolor{" + GetCodeColorForEnum(token->type) + "}{" + "\\textbf{" + +"\\emph{"+*(token->value) + "}}" + "}@*)");
+	string value = *(token->value);
+	value = regex_replace(value, regex("\n"), R"(\\)");
+	org.append("(*@\\textcolor{" + GetCodeColorForEnum(token->type) + "}{" + "\\textbf{" + +"\\emph{"+ value + "}}" + "}@*)");
 }
 
 void AppendBoldAndColor(string& org, Token token) {
-	org.append("(*@\\textcolor{" + GetCodeColorForEnum(token->type) + "}{" + "\\textbf{" + *(token->value) + "}" + "}@*)");
+	string value = *(token->value);
+	value = regex_replace(value, regex("\n"), R"(\\)");
+	org.append("(*@\\textcolor{" + GetCodeColorForEnum(token->type) + "}{" + "\\textbf{" + value + "}" + "}@*)");
 }
 
 void AppendBold(string& org, Token token) {
-	org.append("(*@\\textbf{" + *(token->value) + "}@*)");
+	string value = *(token->value);
+	value = regex_replace(value, regex("\n"), R"(\\)");
+	org.append("(*@\\textbf{" + value + "}@*)");
 }
 
 void AppendColor(string& org, Token token) {
-	org.append("(*@\\textcolor{" + GetCodeColorForEnum(token->type) + "}{" + *(token->value) + "}@*)");
+	string value = *(token->value);
+	value = regex_replace(value, regex("\n"), R"(\\)");
+	org.append("(*@\\textcolor{" + GetCodeColorForEnum(token->type) + "}{" + value + "}@*)");
 }
 
 

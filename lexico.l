@@ -174,6 +174,7 @@ LINEBRK       [\n]+
 LETRA  [A-Za-z0-9]
 PALABRA {LETRA}+
 ORACION ({PALABRA}[ ])*{PALABRA}\.
+COMMENT ((\(\*)[^(*]*(\*\)))
 
 /* -- ERROR TOKENS  --*/
 
@@ -318,6 +319,7 @@ BAD_IDENTIFIERSIZE  [_a-zA-Z][_a-zA-Z0-9]{33,1000}
 {EOU_BadStart}			  GetToken(yytext,BADSTRSTART,yylineno);
 {EOU_BadStartDoubleQuote} GetToken(yytext,BADSTRSTART,yylineno);
 {EOU_BadEndDoubleQuote}   GetToken(yytext,BADSTREND,yylineno);
+{COMMENT}				  GetToken(yytext,COMMENTTOKEN,yylineno);
 
 %%
 

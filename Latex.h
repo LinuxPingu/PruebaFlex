@@ -60,6 +60,7 @@ const string PDFHeader = R"(\documentclass[a4paper,12pt]{article}
 \definecolor{PPGreen}{rgb}{0.31,0.79,0.55}
 \definecolor{DGray}{rgb}{0.33,0.33,0.33}
 \definecolor{DPumpkin}{rgb}{0.80,0.48,0.4}
+\definecolor{MGreen}{rgb}{0.12,0.82,0.1}
 
 
 %Color de resaltado%

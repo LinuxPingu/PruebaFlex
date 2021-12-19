@@ -128,6 +128,7 @@ void GetToken(string lexema, Token_type tipo, int linea) {
 	tmpToken->value = new string(lexema);
 	tmpToken->lnum = linea;
 	tmpToken->type = tipo;
+	cout << *(tmpToken->value);
 	tokens_queue.push(tmpToken);
 	/*Hist Map Init*/
 	try
@@ -139,7 +140,7 @@ void GetToken(string lexema, Token_type tipo, int linea) {
 	}
 	catch (const out_of_range& oor)
 	{
-		cerr << "Out of Range error: " << oor.what() << '\n';
+		//cerr << "Out of Range error: " << oor.what() << '\n';
 	}
 
 
@@ -194,39 +195,59 @@ string CreatePieSection() {
 	return pie;
 }
 
+void LatexJumpLine(string& value) {
+	value = regex_replace(value, regex("\n"), R"(\\)");
+}
+
+void LatexSpaceAndTabs(string& value) {
+	cout << value;
+	value = regex_replace(value, regex(" "), "\\phantom{" + latexhorizontalspace + "}");
+	value = regex_replace(value, regex("\t"), "\\phantom{" + latextab + "}");
+}
+
 void AppendBoldEmphAndColor(string& org, Token token) {
 	string value = *(token->value);
-	value = regex_replace(value, regex("\n"), R"(\\)");
+	LatexJumpLine(value);
+	LatexSpaceAndTabs(value);
 	org.append("(*@\\textcolor{" + GetCodeColorForEnum(token->type) + "}{" + "\\textbf{" + +"\\emph{"+ value + "}}" + "}@*)");
 }
 
 void AppendBoldAndColor(string& org, Token token) {
 	string value = *(token->value);
-	value = regex_replace(value, regex("\n"), R"(\\)");
+	LatexJumpLine(value);
+	LatexSpaceAndTabs(value);
 	org.append("(*@\\textcolor{" + GetCodeColorForEnum(token->type) + "}{" + "\\textbf{" + value + "}" + "}@*)");
 }
 
 void AppendBold(string& org, Token token) {
 	string value = *(token->value);
-	value = regex_replace(value, regex("\n"), R"(\\)");
+	LatexJumpLine(value);
+	LatexSpaceAndTabs(value);
 	org.append("(*@\\textbf{" + value + "}@*)");
 }
 
 void AppendColor(string& org, Token token) {
 	string value = *(token->value);
-	value = regex_replace(value, regex("\n"), R"(\\)");
+	LatexJumpLine(value);
+	LatexSpaceAndTabs(value);
 	org.append("(*@\\textcolor{" + GetCodeColorForEnum(token->type) + "}{" + value + "}@*)");
 }
 
+void AppendError(string& org, Token token) {
+	org.append("(*@\\phantom{"+ latexhorizontalspace +"}\\textcolor{white}{\\textbf{\\hl{"
+		+ GetStringForEnum(token->type) + "}}}\\phantom{" + latexhorizontalspace + latexhorizontalspace + "}@*)");
+}
 
 string CreateScannedCodeSection() {
 	string code = "";
-	queue<Token> code_copy = tokens_queue;
-	
-	while (code_copy.size() != 0) {
-		Token tmp = code_copy.front();
+	string errors = "";
+
+	while (tokens_queue.size() != 0) {
+		Token tmp = tokens_queue.front();
 		if (GetBoldForEnum(tmp->type) != "NAN" && GetCodeColorForEnum(tmp->type) != "Black" && GetEmphForEnum(tmp->type) != "NAN"){
 			AppendBoldEmphAndColor(code, tmp);
+			if (tmp->type > CHAR && tmp->type < LINEBRK)
+				AppendError(code, tmp), errors.append(GetStringForEnum(tmp->type) + "\n");
 		}
 		else if (GetBoldForEnum(tmp->type) != "NAN" && GetCodeColorForEnum(tmp->type) != "Black") {
 			AppendBoldAndColor(code, tmp);
@@ -240,9 +261,9 @@ string CreateScannedCodeSection() {
 		else {
 			code.append(*(tmp->value));
 		}
-		code_copy.pop();
+		tokens_queue.pop();
 	}
-
+	code.append("\n\nErrores encontrados: \n\n"+errors);
 	return code;
 }
 

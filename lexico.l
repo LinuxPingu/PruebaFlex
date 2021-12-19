@@ -179,9 +179,9 @@ COMMENT ((\(\*)[^(*]*(\*\)))
 /* -- ERROR TOKENS  --*/
 
 EOU_BadEnd   (['][ ]*([_A-Za-z0-9]*[ ]*[^'])*)
-EOU_BadStart [^'\n( ]([ ]*[_A-Za-z0-9]*[ ]*)*[']
+EOU_BadStart [^'\n(]([ ]*[^(]*[ ]*)*[']
 EOU_BadEndDoubleQuote   (["][ ]*([_A-Za-z0-9]*[ ]*[^"])*)
-EOU_BadStartDoubleQuote [^"\n]([_A-Za-z0-9]*[ ]*)*["]
+EOU_BadStartDoubleQuote [^"\n(]([_A-Za-z0-9]*[ ]*)*["]
 BAD_IDENTIFIER [0-9]+[._a-zA-Z][._a-zA-Z0-9]{0,32}
 BAD_IDENTIFIERSIZE  [_a-zA-Z][_a-zA-Z0-9]{33,1000}
 

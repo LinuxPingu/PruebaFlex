@@ -1,6 +1,10 @@
 #include <string.h>
 using namespace std;
 
+const string latexhorizontalspace = "x";
+
+const string latextab = "xxxxxxxx";
+
 const string cmdlatexmk = "latexmk -f";
 
 const string cmdpdflatex = "pdflatex";
@@ -64,7 +68,7 @@ const string PDFHeader = R"(\documentclass[a4paper,12pt]{article}
 
 
 %Color de resaltado%
-\sethlcolor{MoradoChogath}
+\sethlcolor{LRed}
 
 \pgfplotsset{width=14cm,compat=1.9}
 \lstset{
@@ -122,8 +126,7 @@ const string PDFScannerSection = R"(
 			\justify
 			\colorbox{pink}{\textcolor{blue}{\textbf{Lorem Ipsum}}} is \textcolor{white}{\textbf{\hl{simply dummy}}} text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
 			when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into \par
-	 
-			Electronic \emph{typesetting}, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, 
+			Electronic \emph{typesetting}, \hl{simply dummy} unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, 
 			and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
 	\newpage 
 	\subsection{Proceso de scanning}

@@ -3,14 +3,14 @@ USES CRT;
 VAR 9num:INTEGER;
 BEGIN
 ClrScr;
-(* Comentario multilinea verde matrix 
-dsfsd
-	barbaro, perfecto para xcvszxvcsd *)
-WRITE ('Introduzca un numero entero: '); READLN (num);
+(* Comentario multilinea verde matrix dsfsd
+   barbaro, perfecto para 
+	xcvszxvcsd *)	Probando espacioos
+WRITE ('Introduzca   un numero entero: ); READLN (num);
 IF num = 0 THEN
  WRITE ('El numero introducido no es par ni impar, es 0')
 ELSE IF ((num mod 2 = 0)) THEN
-WRITE ('El numero introducido es par')
+WRITE              ('El numero introducido es par')
 ELSE
 	WRITE ('El numero introducido es impar')
 	END.
@@ -23,7 +23,7 @@ WRITE('Introduzca un
 	numero: ');
 READLN(num);
 IF (num mod 2 = 0) THEN
-WRITE('NUMERO PAR')
+	WRITE('NUMERO PAR')
 ELSE
 WRITE('NUMERO IMPAR);
 END.

@@ -7,7 +7,7 @@ enum token_types {
 
 static const char *enum_str[] =
 { "Digit", "Identifier", "Integer", "Real", "Keyword", "Operator", "BlankSpace","Syntax Symbol", "Function", "DataType",
-   "Comparator", "String", "Char","Bad identifier", "Bad identifier size","EOU STR START","EOU STR END","Line Break","COMMENT"};
+   "Comparator", "String", "Char","Identificador mal formado.", "Identificador demasiado grande.","Cadena mal abierta.","Cadena mal cerrada.","Line Break","COMMENT"};
 
 static const char *enum_color[] = {
 	"Black", "MoradoChogath", "LBlue", "PYellow", "DBlue", "LOrange", "Black", "Black", "Black", "LRed",

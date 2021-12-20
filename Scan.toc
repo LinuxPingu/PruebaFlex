@@ -1,0 +1,7 @@
+\contentsline {section}{\numberline {1}Scanner}{2}%
+\contentsline {subsection}{\numberline {1.1}Proceso de scanning}{2}%
+\contentsline {subsection}{\numberline {1.2}Flex}{5}%
+\contentsline {section}{\numberline {2}Resultados}{6}%
+\contentsline {subsection}{\numberline {2.1}C\'odigo escaneado}{6}%
+\contentsline {subsection}{\numberline {2.2}Histograma}{7}%
+\contentsline {subsection}{\numberline {2.3}Diagrama circular}{8}%

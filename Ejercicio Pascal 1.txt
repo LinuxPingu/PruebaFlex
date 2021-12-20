@@ -1,0 +1,15 @@
+Program ejb;
+uses crt;
+	Var
+		R,Num1,num2:integer;
+
+Begin
+clrscr;
+	Writeln('Ingrese Un numero');
+	Readln(Num1);
+	Writeln('Ingrese Un numero');
+	Readln(Num2);
+	R:=Num1-Num2;
+	Writeln('Al restar: ', num1,' - ',num2,' se obtiene: ',R);
+readln;
+ENd.

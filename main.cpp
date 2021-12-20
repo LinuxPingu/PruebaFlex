@@ -180,7 +180,7 @@ string CreatePieSection() {
 	tokenpercstream << fixed;
 	tokenpercstream << setprecision(2);
 
-	pie.append("\\pie[xshift=12cm,scale=2]{");
+	pie.append("\n \\def\\printonlypositive#1{\\ifdim#1pt>0pt \n #1 \n \\fi} \\pie[xshift=12cm,scale=2,before number=\\printonlypositive]{");
 	for (auto& plot : plot_map) {
 		tokenperc = ((static_cast<float>(plot.second.second)*100.00)/ static_cast<float>(token_counter));
 		tokenpercstream.str("");
@@ -188,8 +188,9 @@ string CreatePieSection() {
 		tokenpercstring = tokenpercstream.str();
 
 		iterator++;
-		iterator == plot_map.size() ? pie.append(tokenpercstring + "/" + plot.first + "\n") :
-				pie.append(tokenpercstring + "/" + plot.first + "," + "\n");
+		if(tokenperc != 0)
+			iterator == plot_map.size() ? pie.append(tokenpercstring + "/" + plot.first + "\n") :
+					pie.append(tokenpercstring + "/" + plot.first + "," + "\n");
 	}
 	pie.append("}\n \\end{tikzpicture}");
 	return pie;

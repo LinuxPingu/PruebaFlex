@@ -247,7 +247,7 @@ string CreateScannedCodeSection() {
 		if (GetBoldForEnum(tmp->type) != "NAN" && GetCodeColorForEnum(tmp->type) != "Black" && GetEmphForEnum(tmp->type) != "NAN"){
 			AppendBoldEmphAndColor(code, tmp);
 			if (tmp->type > CHAR && tmp->type < LINEBRK)
-				AppendError(code, tmp), errors.append(GetStringForEnum(tmp->type) + "\n");
+				AppendError(code, tmp), errors.append(to_string(tmp->lnum)+ " - " + GetStringForEnum(tmp->type) + "\n");
 		}
 		else if (GetBoldForEnum(tmp->type) != "NAN" && GetCodeColorForEnum(tmp->type) != "Black") {
 			AppendBoldAndColor(code, tmp);

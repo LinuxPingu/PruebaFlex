@@ -122,17 +122,44 @@ const string PDFScannerSection = R"(
 	\newpage 
 	\section {Scanner}
 	\setlength{\parindent}{1,5cm}
-	\subsection{Analizador léxico}
-			\justify
-			\colorbox{pink}{\textcolor{blue}{\textbf{Lorem Ipsum}}} is \textcolor{white}{\textbf{\hl{simply dummy}}} text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-			when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into \par
-			Electronic \emph{typesetting}, \hl{simply dummy} unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, 
-			and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-	\newpage 
 	\subsection{Proceso de scanning}
+	\justify 
+	El proceso de scanning, también conocido como análisis léxico, es la primera fase del proceso de compilación. 
+
+	Éste es  realizado por un Scanner o analizador léxico, que en líneas generales, se trata de un programa que recibe a modo de entrada el código fuente de otro, y a partir de las secuencias de caracteres contenidas en éste, genera una serie de tokens, cuyo ciclo de vida continua en un analizador sintáctico o Parser. 
+
+	Cada token generado por el Scanner representa un componente léxico o símbolo, cuyo patrón es detectado mediante expresiones regulares. Dichas expresiones pueden ajustarse según los requerimientos del lenguaje con el que se esté tratando.  
+
+	Las expresiones regulares que definen los tokens del lenguaje son revisadas por un autómata de estados finitos, encargado de  procesar carácter a carácter el código fuente pasado como entrada, y retornar un token por cada estado final alcanzado.
+
+	En el caso de que existan más de dos patrones en los que una secuencia de caracteres pueda alcanzar un estado final, se toma la que mayor cantidad de coincidencias individuales posea.
+
+	El proceso de scanning implementado en este proyecto no se separa del proceso descrito anteriormente, al menos no en el orden y objetivo de cada paso a realizar. 
+	
+	\newpage
+	Apoyados en la herramienta Flex, - de la que se hablará con mayor detalle más adelante -, y en un conjunto de expresiones regulares que representan al lenguaje de programación Pascal, generamos un autómata de estados finitos en C++, que retorna los tokens a otro programa escrito en el mismo lenguaje, cuyo trabajo es la realización de este documento.
+	
+	Ambos programas utilizan el archivo de cabecera Token.h, que contiene una colección de tipos de token, así como la forma de tratarlos al momento de ser representados en la salida.
+	
+	\begin{center}
+		\includegraphics[width =14cm, height=10cm]{tokenh}
+	\end{center}
+	
+	\newpage
+	Los tokens son almacenados en la siguiente estructura:
+	\begin{center}
+		\includegraphics[width =6cm, height=3cm]{structtoken}
+	\end{center}
+
+	Cada token detectado se almacena en una cola que servirá para recomponer el código fuente en la sección correspondiente de este documento.
 
 	\newpage 
+	\setlength{\parindent}{1,5cm}
 	\subsection{Flex}
+	Flex es un software open source desarrollado alrededor del año 1987 por Vern Paxson en el lenguaje C. Flex significa Fast Lexical analyzer generator y como el nombre lo menciona, esta herramienta nos permite realizar y generar un analizador léxico para diversos propósitos, a estos analizadores léxicos se les denomina "Scanners" o "Lexers".  Para su complementar su funcionalidad, esta herramienta se puede llegar a utilizar junto con Berkeley Yacc Parsser Generator ó GNU Bison parser generator, ambos siendo software para el análisis de texto. 
+	
+	Con la herramienta Flex, podemos generar un analizador léxico para cualquier lenguaje en corto tiempo, ya que a este solo se le deben de indicar los patrones a buscar, las reglas al reconocer los patrones y las acciones que se deben tomar una vez encontrados. Flex genera un archivo .l el cual contiene todas las reglas definidas por el programador. Dentro de los archivos generados, se crea una función  yylex(), la cual es la responsable por ejecutar el archivo .l para comenzar a leer el documento pasado por parámetros y comenzar a reconocer y devolver los tokens encontrados.  
+
 )";
 
 const string PDFResultSection = R"(
